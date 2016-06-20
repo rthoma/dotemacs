@@ -13,9 +13,8 @@
 (setq package-enable-at-startup nil)
 
 (setq
-  package-archives '(("gnu"          . "https://elpa.gnu.org/packages/")
-                     ("melpa-stable" . "https://stable.melpa.org/packages/")
-                     ("marmalade"    . "https://marmalade-repo.org/packages/")))
+  package-archives '(("gnu"          . "http://elpa.gnu.org/packages/")
+                     ("melpa-stable" . "http://stable.melpa.org/packages/")))
 
 (setq
   package-selected-packages
