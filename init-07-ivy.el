@@ -3,17 +3,17 @@
 ;; init-07-ivy.el
 ;; Emacs, Version 25.1.50 (9.0)
 ;; OS X Yosemite, Version 10.10.5
-;; Last edited: June 17, 2016
+;; Last edited: June 19, 2016
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; ivy setup
 ;;
-(use-package ivy ;; not deferred
+(use-package ivy
   :ensure t
   :pin gnu
   :init
-  (progn 
+  (progn
     (setq ivy-height 6
           ivy-use-virtual-buffers t
           ivy-count-format "(%d/%d) ")
