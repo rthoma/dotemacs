@@ -10,8 +10,8 @@ It also sets up a 24 hr time display on the mode line.
 ** Use [[https://github.com/abo-abo/swiper][ivy]] as our generic completion front end.  
 If =ivy= isn't already installed, retrieve it from the GNU ELPA repository. 
 I can't say enough good things about this package. Credit to the developer, 
-[[https://github.com/abo-abo][Oleh Krehel]]. I believe =ivy= was originally a part of [[ay][swiper]], but it is now
-available as a standalone package on [[ay][MELPA]]. 
+[[https://github.com/abo-abo][Oleh Krehel]]. I believe =ivy= was originally a part of [[https://github.com/abo-abo/swiper/][swiper]], but it is now
+available as a standalone package on [[https://melpa.org/#/ivy][MELPA]]. 
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
