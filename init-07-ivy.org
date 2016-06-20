@@ -4,7 +4,7 @@
 #+STARTUP: indent
 #+STARTUP: content
 
-* This file configures [[https://github.com/abo-abo/swiper][ivy]], whitespace mode, and the zenburn theme.  
+* This file configures [[https://github.com/abo-abo/swiper][ivy]], whitespace mode, and the [[https://github.com/bbatsov/zenburn-emacs][zenburn]] theme.  
 It also sets up a 24 hr time display on the mode line.
 
 ** Use [[https://github.com/abo-abo/swiper][ivy]] as our generic completion front end.  
