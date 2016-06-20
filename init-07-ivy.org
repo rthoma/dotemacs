@@ -52,7 +52,7 @@ If =ivy= isn't already installed, retrieve it from the GNU ELPA repository.
 
 ** Configure whitespace mode.
 My preference is to leave whitespace mode off by default, and enter it as 
-necessary using the keybinding ~"C-c s w"~ which I remember as "show whitespace."
+necessary using the keybinding ~C-c s w~ which I remember as "show whitespace."
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
