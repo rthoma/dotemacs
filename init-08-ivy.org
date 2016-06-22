@@ -1,5 +1,5 @@
-# TITLE: init-07-ivy-pre
-# DATE: <2016-06-19 Sun>
+# TITLE: init-08-ivy
+# DATE: <2016-06-21 Tue>
 #+AUTHOR: rthoma
 #+STARTUP: indent
 #+STARTUP: content
@@ -16,10 +16,10 @@ available as a standalone package on [[https://melpa.org/#/ivy][MELPA]].
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; init-07-ivy.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Last edited: June 19, 2016
+;; init-08-ivy.el
+;; Emacs, Version 24.5
+;; Windows 10 Pro, Version 1511
+;; Last edited: June 21, 2016
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -68,7 +68,7 @@ necessary using the keybinding ~C-c s w~ which I remember as "show whitespace."
   :diminish whitespace-mode)
 #+END_SRC
 
-** Load the classic [[https://github.com/bbatsov/zenburn-emacs][zenburn]] theme. 
+** Load the classic zenburn theme. 
 Zenburn is an excellent low contrast theme originally developed by [[https://github.com/jnurmine][Jani Nurmine]]
 for =vim=. Special thanks to [[https://github.com/bbatsov/][Bozhidar Batsov]], who ported this theme to Emacs. 
 This is the only theme I have found that uses attractive faces for =LaTeX=, which

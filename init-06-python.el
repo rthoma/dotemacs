@@ -1,37 +1,63 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-06-python.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Last edited: June 17, 2016
+;; Emacs, Version 24.5
+;; Windows 10 Pro, Version 1511
+;; Last edited: June 21, 2016
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Python setup
 ;;
-(use-package python ;; deferred
+(use-package iedit 
+  :ensure t
+  :pin melpa-stable
+  :defer t
+  :bind ("C-c o" . iedit-mode))
+ 
+(use-package company-quickhelp 
+  :ensure t
+  :pin melpa-stable
+  :defer t 
+  :init
+  (progn
+    (setq company-quickhelp-delay 0.1)
+    (use-package pos-tip
+      :ensure t
+      :pin melpa-stable
+      :defer t)))
+
+(use-package yasnippet
+  :ensure t 
+  :pin gnu
+  :defer t 
+  :bind ("C-c k" . yas-expand))
+
+(use-package python
   ;;
   ;; Package preferences
   ;;
-  :ensure elpy
-  :pin melpa-stable
   :defer t
   ;;
   ;; Preload initialization
   ;;
-  :bind (("C-c k" . yas-expand)
-         ("C-c o" . iedit-mode))
-  ;;
   :init
-  (setq elpy-rpc-backend "jedi")
-  (setq company-quickhelp-delay 0.1)
+  (progn
+    (use-package elpy
+      :ensure t 
+      :pin melpa-stable
+      :defer t
+      :init
+      (setq elpy-rpc-backend "jedi")
+      :config 
+      (elpy-use-ipython)))
   ;;
   ;; After load configuration
   ;;
   :config
   (progn
     (elpy-enable)
-    (elpy-use-ipython)
+  
     (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))
 
     (defun company-yasnippet-or-completion ()
