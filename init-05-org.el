@@ -30,10 +30,13 @@
     (setq org-directory "~/.emacs.d/orgfiles/"
           org-archive-location "~/.emacs.d/orgfiles/archive/")
     (setq org-todo-keywords
-          '((sequence "TODO" "WAIT" "CANC" "DONE")))
+          '((sequence "TODO" "DONE" "PROG" "WAIT" "CANC")))
     (setq org-todo-keyword-faces
-          '(("TODO" . org-todo) ("WAIT" . (:foreground "#F2E1AC" :weight bold))
-            ("CANC" . org-todo) ("DONE" . org-done)))
+          '(("TODO" . org-todo)
+            ("WAIT" . (:foreground "#F2E1AC" :weight bold))
+            ("PROG" . (:foreground "#74d3d5" :weight bold))
+            ("CANC" . org-todo)
+            ("DONE" . org-done)))
     (setq user-full-name "rthoma")
     (setq org-src-preserve-indentation t))
   ;;
