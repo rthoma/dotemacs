@@ -43,11 +43,12 @@ the package is called.
 
  #+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
-  :init
-  (progn
-    ;; Add git directory to path and exec-path
-    (setenv "PATH" (concat (getenv "PATH") ";C:\Program Files\Git\bin"))
-    (setq exec-path (append exec-path '("C:\Program Files\Git\bin"))))
+  ;;:init
+  ;;   Commented out for Windows
+  ;;   (progn
+  ;;   ;; Add git directory to path and exec-path
+  ;;     (setenv "PATH" (concat (getenv "PATH") ";C:\\Program Files\\Git\\bin"))
+  ;;     (setq exec-path (append exec-path '("C:\\Program Files\\Git\\bin"))))
  #+END_SRC
 
 ** This is a placeholder for after load configuration

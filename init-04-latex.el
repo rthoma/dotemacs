@@ -12,11 +12,12 @@
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
 
+;; Commented out for Windows
 ;; Add aspell brew directory to path
-(setenv "PATH" (concat (getenv "PATH")
-        ":/usr/local/Cellar/aspell/0.60.6.1/bin"))
-(setq exec-path (append exec-path
-      '("/usr/local/Cellar/aspell/0.60.6.1/bin")))
+;;(setenv "PATH" (concat (getenv "PATH")
+;;        ":/usr/local/Cellar/aspell/0.60.6.1/bin"))
+;;(setq exec-path (append exec-path
+;;      '("/usr/local/Cellar/aspell/0.60.6.1/bin")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -34,9 +35,10 @@
   ;;
   :init
   (progn
+    ;; Commented out for Windows
     ;; Add texbin to path and exec-path
-    (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
-    (setq exec-path (append exec-path '("/usr/texbin")))
+    ;; (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
+    ;; (setq exec-path (append exec-path '("/usr/texbin")))
 
     ;; Set the list of viewers for Mac OS X
     ;; The -b displayline option highlights the current line
