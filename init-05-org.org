@@ -1,22 +1,22 @@
 # TITLE: init-05-org
-# DATE: <2016-06-19 Sun>
+# DATE: <2016-06-21 Tue>
 #+AUTHOR: rthoma
 #+STARTUP: indent
 #+STARTUP: content
 
-* This is a test of using org mode to document my config files
-** Basic header and use-package declaration. 
-Ensure org mode is installed. Use the GNU ELPA repository by default.
+* [[http://orgmode.org/][Org]] mode setup
+** File header and use-package declaration.
+Ensure org mode is installed. Use the GNU [[https://elpa.gnu.org/packages/org.html][ELPA]] repository by default.
 Explicitly defer loading org mode until it's needed. The ~:mode~ and ~:bind~
 specifications imply this already.
 
- #+begin_src emacs-lisp :tangle yes :padline no
+#+BEGIN_SRC emacs-lisp :tangle yes :padline no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-05-org.el
-;; Emacs, Version 24.5
-;; Windows 10 Pro, Version 1511
-;; Last edited: June 21, 2016
+;; Emacs, Version 25.1.50 (9.0)
+;; OS X Yosemite, Version 10.10.5
+;; Last edited: June 19, 2016
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -29,11 +29,11 @@ specifications imply this already.
   :ensure t
   :pin gnu
   :defer t
- #+end_src
+#+END_SRC
 
-** Probably insert some comments here or something
+** Set up some basic key bindings.
 
- #+begin_src emacs-lisp :tangle yes :padline no
+#+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
   ;; Preload initialization
   ;;
@@ -43,27 +43,31 @@ specifications imply this already.
          ("C-c c" . org-capture)
          ("C-c b" . org-iswitchb))
   ;;
- #+end_src
+#+END_SRC
 
-** Now talk about this stuff
+** Specify the archive directory and add our todo keywords.
 
- #+begin_src emacs-lisp :tangle yes :padline no
+#+BEGIN_SRC emacs-lisp :tangle yes :padline no
   :init
   (progn
     (setq org-directory "~/.emacs.d/orgfiles/"
           org-archive-location "~/.emacs.d/orgfiles/archive/")
     (setq org-todo-keywords
-          '((sequence "TODO" "WAIT" "CANC" "DONE")))
+          '((sequence "TODO" "DONE" "PROG" "WAIT" "CANC")))
     (setq org-todo-keyword-faces
-          '(("TODO" . org-todo) ("WAIT" . (:foreground "#F2E1AC" :weight bold))
-            ("CANC" . org-todo) ("DONE" . org-done)))
+          '(("TODO" . org-todo)
+            ("WAIT" . (:foreground "#F2E1AC" :weight bold))
+            ("PROG" . (:foreground "#74D3D5" :weight bold))
+            ("CANC" . org-todo)
+            ("DONE" . org-done)))
     (setq user-full-name "rthoma")
-    (setq org-src-preserve-indentation t))
- #+end_src
+    (setq org-src-preserve-indentation t)
+    (setq org-log-done 'time))
+#+END_SRC
 
 ** After load configuration currently empty
 
- #+begin_src emacs-lisp :tangle yes :padline no
+#+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
   ;; After load configuration
   ;;
@@ -71,7 +75,7 @@ specifications imply this already.
   ;; (progn ;; config stuff)
   )
 
-;; eof
- #+end_src
+;; EOF
+#+END_SRC
 
-# eof
+# EOF
