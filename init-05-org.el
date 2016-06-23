@@ -34,11 +34,12 @@
     (setq org-todo-keyword-faces
           '(("TODO" . org-todo)
             ("WAIT" . (:foreground "#F2E1AC" :weight bold))
-            ("PROG" . (:foreground "#74d3d5" :weight bold))
+            ("PROG" . (:foreground "#74D3D5" :weight bold))
             ("CANC" . org-todo)
             ("DONE" . org-done)))
     (setq user-full-name "rthoma")
-    (setq org-src-preserve-indentation t))
+    (setq org-src-preserve-indentation t)
+    (setq org-log-done 'time))
   ;;
   ;; After load configuration
   ;;

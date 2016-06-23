@@ -21,11 +21,7 @@
   :defer t 
   :init
   (progn
-    (setq company-quickhelp-delay 0.1)
-    (use-package pos-tip
-      :ensure t
-      :pin melpa-stable
-      :defer t)))
+    (setq company-quickhelp-delay 0.1)))
 
 (use-package yasnippet
   :ensure t 

@@ -22,7 +22,7 @@
   ;;:bind
   ;;
   ;;:init
-  ;;   Commented out for Windows
+  ;;   Commented out for Mac
   ;;   (progn
   ;;   ;; Add git directory to path and exec-path
   ;;     (setenv "PATH" (concat (getenv "PATH") ";C:\\Program Files\\Git\\bin"))
