@@ -1,9 +1,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-05-org.el
-;; Emacs, Version 24.5
-;; Windows 10 Pro, Version 1511
-;; Last edited: June 21, 2016
+;; Emacs, Version 25.1.50 (9.0)
+;; OS X Yosemite, Version 10.10.5
+;; Last edited: June 19, 2016
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -30,11 +30,11 @@
     (setq org-directory "~/.emacs.d/orgfiles/"
           org-archive-location "~/.emacs.d/orgfiles/archive/")
     (setq org-todo-keywords
-          '((sequence "TODO" "DONE" "PROG" "WAIT" "CANC")))
+          '((sequence "TODO" "PROG" "WAIT" "CANC" "DONE")))
     (setq org-todo-keyword-faces
           '(("TODO" . org-todo)
+            ("PROG" . (:foreground "#74D3D5" :weight bold)) 
             ("WAIT" . (:foreground "#F2E1AC" :weight bold))
-            ("PROG" . (:foreground "#74D3D5" :weight bold))
             ("CANC" . org-todo)
             ("DONE" . org-done)))
     (setq user-full-name "rthoma")
