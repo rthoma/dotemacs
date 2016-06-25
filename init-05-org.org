@@ -5,7 +5,7 @@
 #+STARTUP: content
 
 * [[http://orgmode.org/][Org]] mode setup
-** File header and use-package declaration.
+** File header and use-package declaration
 Ensure org mode is installed. Use the GNU [[https://elpa.gnu.org/packages/org.html][ELPA]] repository by default.
 Explicitly defer loading org mode until it's needed. The ~:mode~ and ~:bind~
 specifications imply this already.
@@ -16,7 +16,6 @@ specifications imply this already.
 ;; init-05-org.el
 ;; Emacs, Version 25.1.50 (9.0)
 ;; OS X Yosemite, Version 10.10.5
-;; Last edited: June 19, 2016
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -31,7 +30,7 @@ specifications imply this already.
   :defer t
 #+END_SRC
 
-** Set up some basic key bindings.
+** Set up some basic key bindings
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
@@ -45,7 +44,7 @@ specifications imply this already.
   ;;
 #+END_SRC
 
-** Specify the archive directory and add our todo keywords.
+** Specify the archive directory and add our todo keywords
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
   :init

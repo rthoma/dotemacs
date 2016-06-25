@@ -3,7 +3,6 @@
 ;; init-01-packages.el
 ;; Emacs, Version 25.1.50 (9.0)
 ;; OS X Yosemite, Version 10.10.5
-;; Last edited: June 17, 2016
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -14,8 +13,7 @@
 
 (setq
   package-archives '(("gnu"          . "https://elpa.gnu.org/packages/")
-                     ("melpa-stable" . "https://stable.melpa.org/packages/")
-                     ("marmalade"    . "https://marmalade-repo.org/packages/")))
+                     ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 (setq
   package-selected-packages
@@ -25,6 +23,7 @@
       company               ;; dependency for elpy
       company-quickhelp     ;; installed
       color-theme           ;; dependency
+      counsel               ;; installed
       dash                  ;; dependency
       diminish              ;; dependency
       elpy                  ;; installed
@@ -40,6 +39,7 @@
       pos-tip               ;; dependency for company-quickhelp
       pyvenv                ;; dependency for elpy
       s                     ;; installed
+      swiper                ;; installed
       tablist               ;; dependency
       use-package           ;; installed
       with-editor           ;; dependency
@@ -53,7 +53,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(eval-when-compile
+(eval-and-compile
   (require 'use-package))
 
 ;; eof

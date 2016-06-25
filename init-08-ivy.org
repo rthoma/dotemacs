@@ -1,17 +1,18 @@
 # TITLE: init-07-ivy-pre
-# DATE: <2016-06-19 Sun>
+# DATE: <2016-06-25 Sat>
 #+AUTHOR: rthoma
 #+STARTUP: indent
 #+STARTUP: content
 
-* This file configures [[https://github.com/abo-abo/swiper][ivy]], whitespace mode, and the [[https://github.com/bbatsov/zenburn-emacs][zenburn]] theme.  
+* This file configures [[https://www.melpa.org/#/ivy][ivy]], whitespace mode, and the [[https://github.com/bbatsov/zenburn-emacs][zenburn]] theme
 It also sets up a 24 hr time display on the mode line.
 
-** Use [[https://github.com/abo-abo/swiper][ivy]] as our generic completion front end.  
+** Use [[https://github.com/abo-abo/swiper][ivy]] as our generic completion front end
 If =ivy= isn't already installed, retrieve it from the GNU ELPA repository. 
 I can't say enough good things about this package. Credit to the developer, 
 [[https://github.com/abo-abo][Oleh Krehel]]. I believe =ivy= was originally a part of [[https://github.com/abo-abo/swiper/][swiper]], but it is now
-available as a standalone package on [[https://melpa.org/#/ivy][MELPA]]. 
+available as a standalone package on [[https://melpa.org/#/ivy][MELPA]]. Use [[https://melpa.org/#/swiper][swiper]] as a replacement for 
+isearch, and [[http://melpa.org/#/counsel][counsel]] to enhance ivy's completion facilities.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -19,26 +20,55 @@ available as a standalone package on [[https://melpa.org/#/ivy][MELPA]].
 ;; init-07-ivy.el
 ;; Emacs, Version 25.1.50 (9.0)
 ;; OS X Yosemite, Version 10.10.5
-;; Last edited: June 19, 2016
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; ivy setup
 ;;
 (use-package ivy
+  ;;
+  ;; Package preferences
+  ;;
   :ensure t
   :pin gnu
+  ;;
+  ;; Pre-load initialization
+  ;;
   :init
   (progn
     (setq ivy-height 6
           ivy-use-virtual-buffers t
           ivy-count-format "(%d/%d) ")
-    (bind-key "C-c r f" 'ivy-recentf))
+    (bind-key "C-c C-f" 'ivy-recentf))
+  ;;
+  ;; After load configuration
+  ;;
   :config
-  (when (fboundp 'ivy-mode) (ivy-mode 1)))
+  (progn
+    (use-package swiper
+      :ensure t
+      :pin melpa-stable
+      :init
+      (bind-key "C-s" 'swiper))
+      
+    (use-package counsel 
+      :ensure t
+      :pin melpa-stable
+      :init
+      (progn 
+        (bind-key "M-x" 'counsel-M-x)
+        (bind-key "C-x C-f" 'counsel-find-file)
+        (bind-key "C-c g" 'counsel-git)
+        (bind-key "C-c j" 'counsel-git-grep)
+        (bind-key "C-c k" 'counsel-ag)
+        (bind-key "C-x l" 'counsel-locate)
+        (bind-key "C-S-o" 'counsel-rhythmbox)
+        (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
+
+    (when (fboundp 'ivy-mode) (ivy-mode 1))))
 #+END_SRC
 
-** Set up a 24 hr time display on the mode line.
+** Set up a 24 hr time display on the mode line
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -53,7 +83,7 @@ available as a standalone package on [[https://melpa.org/#/ivy][MELPA]].
   (display-time))
 #+END_SRC
 
-** Configure whitespace mode.
+** Configure whitespace mode
 My preference is to leave whitespace mode off by default, and enter it as 
 necessary using the keybinding ~C-c s w~ which I remember as "show whitespace."
 
@@ -68,7 +98,7 @@ necessary using the keybinding ~C-c s w~ which I remember as "show whitespace."
   :diminish whitespace-mode)
 #+END_SRC
 
-** Load the classic [[https://github.com/bbatsov/zenburn-emacs][zenburn]] theme. 
+** Load the classic [[https://github.com/bbatsov/zenburn-emacs][zenburn]] theme
 Zenburn is an excellent low contrast theme originally developed by [[https://github.com/jnurmine][Jani Nurmine]]
 for =vim=. Special thanks to [[https://github.com/bbatsov/][Bozhidar Batsov]], who ported this theme to Emacs. 
 This is the only theme I have found that uses attractive faces for =LaTeX=, which

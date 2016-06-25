@@ -1,33 +1,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-06-python.el
-;; Emacs, Version 24.5
-;; Windows 10 Pro, Version 1511
-;; Last edited: June 21, 2016
+;; Emacs, Version 25.1.50 (9.0)
+;; OS X Yosemite, Version 10.10.5
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Python setup
 ;;
-(use-package iedit 
+(use-package iedit
   :ensure t
   :pin melpa-stable
   :defer t
   :bind ("C-c o" . iedit-mode))
- 
-(use-package company-quickhelp 
-  :ensure t
-  :pin melpa-stable
-  :defer t 
-  :init
-  (progn
-    (setq company-quickhelp-delay 0.1)))
-
-(use-package yasnippet
-  :ensure t 
-  :pin gnu
-  :defer t 
-  :bind ("C-c k" . yas-expand))
 
 (use-package python
   ;;
@@ -37,24 +22,39 @@
   ;;
   ;; Preload initialization
   ;;
-  :init
-  (progn
-    (use-package elpy
-      :ensure t 
-      :pin melpa-stable
-      :defer t
-      :init
-      (setq elpy-rpc-backend "jedi")
-      :config 
-      (elpy-use-ipython)))
+  ;;:init
   ;;
   ;; After load configuration
   ;;
   :config
   (progn
-    (elpy-enable)
-  
-    (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))
+    (use-package elpy
+      :ensure t
+      :pin melpa-stable
+      :init
+      (setq elpy-rpc-backend "jedi")
+      :config
+      (progn
+        (elpy-use-ipython)
+        (elpy-enable)))
+
+    (use-package yasnippet
+      :ensure t
+      :pin gnu
+      :defer t
+      :bind ("C-c k" . yas-expand))
+
+    (use-package company-quickhelp
+      :ensure t
+      :pin melpa-stable
+      :defer t
+      :init
+      (setq company-quickhelp-delay 0.1))
+
+    (use-package pos-tip
+      :ensure t
+      :pin melpa-stable
+      :defer t)
 
     (defun company-yasnippet-or-completion ()
       "Solve company yasnippet conflicts."
@@ -68,6 +68,8 @@
         (substitute-key-definition
         'company-complete-common
         'company-yasnippet-or-completion
-         company-active-map)))))
+         company-active-map)))
+
+    (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))))
 
 ;; eof
