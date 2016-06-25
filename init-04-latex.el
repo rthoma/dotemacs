@@ -33,10 +33,9 @@
   ;;
   :init
   (progn
-    ;; Commented out for Windows
     ;; Add texbin to path and exec-path
-    ;; (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
-    ;; (setq exec-path (append exec-path '("/usr/texbin")))
+    (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
+    (setq exec-path (append exec-path '("/usr/texbin")))
 
     ;; Set the list of viewers for Mac OS X
     ;; The -b displayline option highlights the current line
