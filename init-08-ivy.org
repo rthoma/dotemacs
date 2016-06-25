@@ -1,4 +1,4 @@
-# TITLE: init-07-ivy-pre
+# TITLE: init-08-ivy
 # DATE: <2016-06-25 Sat>
 #+AUTHOR: rthoma
 #+STARTUP: indent
@@ -17,7 +17,7 @@ isearch, and [[http://melpa.org/#/counsel][counsel]] to enhance ivy's completion
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; init-07-ivy.el
+;; init-08-ivy.el
 ;; Emacs, Version 25.1.50 (9.0)
 ;; OS X Yosemite, Version 10.10.5
 ;;
