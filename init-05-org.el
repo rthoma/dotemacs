@@ -15,30 +15,30 @@
   :ensure t
   :pin gnu
   :defer t
-;;
-;; Preload initialization
-;;
-:mode ("\\.org\\'" . org-mode)
-:bind (("C-c l" . org-store-link)
-       ("C-c a" . org-agenda)
-       ("C-c c" . org-capture)
-       ("C-c b" . org-iswitchb))
-;;
-:init
-(progn
-  (setq org-directory "~/.emacs.d/orgfiles/"
-        org-archive-location "~/.emacs.d/orgfiles/archive/")
-  (setq org-todo-keywords
-        '((sequence "TODO" "PROG" "WAIT" "CANC" "DONE")))
-  (setq org-todo-keyword-faces
-        '(("TODO" . org-todo)
-          ("PROG" . (:foreground "#74D3D5" :weight bold)) 
-          ("WAIT" . (:foreground "#F2E1AC" :weight bold))
-          ("CANC" . org-todo)
-          ("DONE" . org-done)))
-  (setq user-full-name "rthoma")
-  (setq org-src-preserve-indentation t)
-  (setq org-log-done 'time))
+  ;;
+  ;; Preload initialization
+  ;;
+  :mode ("\\.org\\'" . org-mode)
+  :bind (("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c c" . org-capture)
+         ("C-c b" . org-iswitchb))
+  ;;
+  :init
+  (progn
+    (setq org-directory "~/.emacs.d/orgfiles/"
+          org-archive-location "~/.emacs.d/orgfiles/archive/")
+    (setq org-todo-keywords
+          '((sequence "TODO" "PROG" "WAIT" "CANC" "DONE")))
+    (setq org-todo-keyword-faces
+          '(("TODO" . org-todo)
+            ("PROG" . (:foreground "#74D3D5" :weight bold)) 
+            ("WAIT" . (:foreground "#F2E1AC" :weight bold))
+            ("CANC" . org-todo)
+            ("DONE" . org-done)))
+    (setq user-full-name "rthoma")
+    (setq org-src-preserve-indentation t)
+    (setq org-log-done 'time))
   ;;
   ;; After load configuration
   ;;
