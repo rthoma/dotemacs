@@ -1,94 +1,81 @@
 # TITLE: init-08-ivy
-# DATE: <2016-06-21 Tue>
+# DATE: <2016-06-25 Sat>
 #+AUTHOR: rthoma
 #+STARTUP: indent
 #+STARTUP: content
 
-* This file configures [[https://github.com/abo-abo/swiper][ivy]], whitespace mode, and the [[https://github.com/bbatsov/zenburn-emacs][zenburn]] theme.  
-It also sets up a 24 hr time display on the mode line.
+* This file configures [[https://www.melpa.org/#/ivy][ivy]], [[https://github.com/abo-abo/swiper/][swiper]], and [[http://melpa.org/#/counsel][counsel]]
 
-** Use [[https://github.com/abo-abo/swiper][ivy]] as our generic completion front end.  
-If =ivy= isn't already installed, retrieve it from the GNU ELPA repository. 
+** Use [[https://github.com/abo-abo/swiper][ivy]] as our generic completion front end
+If =ivy= isn't already installed, retrieve it from the GNU ELPA repository.
 I can't say enough good things about this package. Credit to the developer, 
-[[https://github.com/abo-abo][Oleh Krehel]]. I believe =ivy= was originally a part of [[https://github.com/abo-abo/swiper/][swiper]], but it is now
-available as a standalone package on [[https://melpa.org/#/ivy][MELPA]]. 
+[[https://github.com/abo-abo][Oleh Krehel]]. I believe =ivy= was originally a part of =swiper=, but it is now
+available as a standalone package on [[https://melpa.org/#/ivy][MELPA]]. Use =swiper= as a replacement for 
+isearch and =counsel= to enhance ivy's completion facilities.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-08-ivy.el
-;; Emacs, Version 24.5
-;; Windows 10 Pro, Version 1511
-;; Last edited: June 21, 2016
+;; Emacs, Version 25.1.50 (9.0)
+;; OS X Yosemite, Version 10.10.5
+;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; ivy setup
 ;;
 (use-package ivy
+  ;;
+  ;; Package preferences
+  ;;
   :ensure t
   :pin gnu
+  ;;
+  ;; Pre-load initialization
+  ;;
   :init
   (progn
     (setq ivy-height 6
           ivy-use-virtual-buffers t
-          ivy-count-format "(%d/%d) ")
-    (bind-key "C-c r f" 'ivy-recentf))
+          ivy-count-format "(%d/%d) "))
+  ;;
+  ;; After load configuration
+  ;;
   :config
-  (when (fboundp 'ivy-mode) (ivy-mode 1)))
-#+END_SRC
-
-** Set up a 24 hr time display on the mode line.
-
-#+BEGIN_SRC emacs-lisp :tangle yes :padline yes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Time setup
-;;
-(use-package time ;; not deferred
-  :init
-  (setq display-time-24hr-format t
-        display-time-default-load-average nil)
-  :config
-  (display-time))
-#+END_SRC
-
-** Configure whitespace mode.
-My preference is to leave whitespace mode off by default, and enter it as 
-necessary using the keybinding ~C-c s w~ which I remember as "show whitespace."
-
-#+BEGIN_SRC emacs-lisp :tangle yes :padline yes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Whitespace mode setup
-;;
-(use-package whitespace ;; deferred
-  :bind ("C-c s w" . whitespace-mode)
-  :config (setq whitespace-line-column nil)
-  :diminish whitespace-mode)
-#+END_SRC
-
-** Load the classic zenburn theme. 
-Zenburn is an excellent low contrast theme originally developed by [[https://github.com/jnurmine][Jani Nurmine]]
-for =vim=. Special thanks to [[https://github.com/bbatsov/][Bozhidar Batsov]], who ported this theme to Emacs. 
-This is the only theme I have found that uses attractive faces for =LaTeX=, which
-I use heavily.
-
-#+BEGIN_SRC emacs-lisp :tangle yes :padline yes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; zenburn setup
-;;
-(use-package zenburn-theme ;; not deferred
-  :ensure t
-  :pin melpa-stable
-  :init
   (progn
-    (setq custom-enabled-themes 'zenburn)
-    (setq custom-safe-themes
-      (quote
-    ("afbb40954f67924d3153f27b6d3399df221b2050f2a72eb2cfa8d29ca783c5a8" default)
-  ))))
+    (when (fboundp 'ivy-mode) (ivy-mode 1))
+
+    (bind-keys :map ivy-mode-map
+               ("C-c C-f" . ivy-recentf))
+
+    (use-package swiper
+      :ensure t
+      :pin melpa-stable
+      :init
+      :config
+      (bind-keys :map ivy-mode-map
+                 ("C-s" . swiper)))
+
+    (use-package counsel
+      :ensure t
+      :pin melpa-stable
+      :init
+      :config
+      (progn
+        (when (fboundp 'counsel-mode) (counsel-mode 1))
+
+        (bind-keys :map counsel-mode-map
+                   ("M-x" . counsel-M-x)
+                   ("C-x C-f" . counsel-find-file)
+                   ("C-c g" . counsel-git)
+                   ("C-c j" . counsel-git-grep)
+                   ("C-c k" . counsel-ag)
+                   ("C-x l" . counsel-locate)
+                   ("C-S-o" . counsel-rhythmbox))
+
+        (bind-keys :map read-expression-map
+                   ("C-r" . counsel-expression-history))))))
 
 ;; eof
 #+END_SRC

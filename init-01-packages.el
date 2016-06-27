@@ -1,9 +1,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-01-packages.el
-;; Emacs, Version 24.5
-;; Windows 10 Pro, Version 1511
-;; Last edited: June 21, 2016
+;; Emacs, Version 25.1.50 (9.0)
+;; OS X Yosemite, Version 10.10.5
+;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -12,38 +12,45 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 
-(setq
-  package-archives '(("gnu"          . "http://elpa.gnu.org/packages/")
-                     ("melpa-stable" . "http://stable.melpa.org/packages/")))
+(if (eq system-type 'windows-nt)
+    (setq 
+      package-archives 
+        '(("gnu"          . "http://elpa.gnu.org/packages/")
+          ("melpa-stable" . "http://stable.melpa.org/packages/")))
+  (setq 
+    package-archives 
+      '(("gnu"          . "https://elpa.gnu.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/"))))
 
 (setq
   package-selected-packages
-    '(async                 ;; dependency
-      auctex                ;; installed
-      bind-key              ;; dependency
-      company               ;; dependency for elpy
-      company-quickhelp     ;; installed
-      color-theme           ;; dependency
-      dash                  ;; dependency
-      diminish              ;; dependency
-      elpy                  ;; installed
-      exec-path-from-shell  ;; installed
-      find-file-in-project  ;; dependency for elpy
-      git-commit            ;; dependency for magit
-      highlight-indentation ;; dependency for elpy
-      iedit                 ;; installed
-      ivy                   ;; installed
-      magit                 ;; installed
-      magit-popup           ;; dependency for magit
-      org                   ;; installed
-      pos-tip               ;; dependency for company-quickhelp
-      pyvenv                ;; dependency for elpy
-      s                     ;; installed
-      tablist               ;; dependency
-      use-package           ;; installed
-      with-editor           ;; dependency
-      yasnippet             ;; dependency for elpy
-      zenburn-theme))       ;; installed
+    '(async                 ;; required by magit
+      auctex                ;; 
+      bind-key              ;; required by use-package
+      company               ;; required by elpy
+      company-quickhelp     ;; 
+      color-theme           ;; 
+      counsel               ;; 
+      dash                  ;; required by magit
+      diminish              ;; required by use-package
+      elpy                  ;; 
+      exec-path-from-shell  ;; 
+      find-file-in-project  ;; required by elpy
+      git-commit            ;; required by magit
+      highlight-indentation ;; required by elpy
+      iedit                 ;;
+      ivy                   ;; required by swiper and find-file
+      magit                 ;;
+      magit-popup           ;; required by magit
+      org                   ;;
+      pos-tip               ;; required by company-quickhelp
+      pyvenv                ;; required by elpy
+      swiper                ;; required by counsel
+      tablist               ;; 
+      use-package           ;; 
+      with-editor           ;; required by magit
+      yasnippet             ;; required by elpy
+      zenburn-theme))       ;; 
 
 (package-initialize)
 
@@ -52,7 +59,7 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(eval-when-compile
+(eval-and-compile
   (require 'use-package))
 
 ;; eof

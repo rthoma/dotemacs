@@ -1,9 +1,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init.el
-;; Emacs, Version 24.5
-;; Windows 10 Pro, Version 1511
-;; Last edited: June 21, 2016
+;; Emacs, Version 25.1.50 (9.0)
+;; OS X Yosemite, Version 10.10.5
+;; Windows 10 Pro, Version 1511, Build 10586.420
 ;; 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -28,7 +28,8 @@
         (load "~/.emacs.d/config/init-05-org.el")
         (load "~/.emacs.d/config/init-06-python.el")
         (load "~/.emacs.d/config/init-07-magit.el")
-        (load "~/.emacs.d/config/init-08-ivy.el")))
+        (load "~/.emacs.d/config/init-08-ivy.el")
+        (load "~/.emacs.d/config/init-09-theme.el")))
 (rthoma/init-emacs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

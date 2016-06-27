@@ -1,59 +1,64 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; init-07-ivy.el
+;; init-08-ivy.el
 ;; Emacs, Version 25.1.50 (9.0)
 ;; OS X Yosemite, Version 10.10.5
-;; Last edited: June 19, 2016
+;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; ivy setup
 ;;
 (use-package ivy
+  ;;
+  ;; Package preferences
+  ;;
   :ensure t
   :pin gnu
+  ;;
+  ;; Pre-load initialization
+  ;;
   :init
   (progn
     (setq ivy-height 6
           ivy-use-virtual-buffers t
-          ivy-count-format "(%d/%d) ")
-    (bind-key "C-c r f" 'ivy-recentf))
+          ivy-count-format "(%d/%d) "))
+  ;;
+  ;; After load configuration
+  ;;
   :config
-  (when (fboundp 'ivy-mode) (ivy-mode 1)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Time setup
-;;
-(use-package time ;; not deferred
-  :init
-  (setq display-time-24hr-format t
-        display-time-default-load-average nil)
-  :config
-  (display-time))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; Whitespace mode setup
-;;
-(use-package whitespace ;; deferred
-  :bind ("C-c s w" . whitespace-mode)
-  :config (setq whitespace-line-column nil)
-  :diminish whitespace-mode)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-;; zenburn setup
-;;
-(use-package zenburn-theme ;; not deferred
-  :ensure t
-  :pin melpa-stable
-  :init
   (progn
-    (setq custom-enabled-themes 'zenburn)
-    (setq custom-safe-themes
-      (quote
-    ("afbb40954f67924d3153f27b6d3399df221b2050f2a72eb2cfa8d29ca783c5a8" default)
-  ))))
+    (when (fboundp 'ivy-mode) (ivy-mode 1))
+
+    (bind-keys :map ivy-mode-map
+               ("C-c C-f" . ivy-recentf))
+
+    (use-package swiper
+      :ensure t
+      :pin melpa-stable
+      :init
+      :config
+      (bind-keys :map ivy-mode-map
+                 ("C-s" . swiper)))
+
+    (use-package counsel
+      :ensure t
+      :pin melpa-stable
+      :init
+      :config
+      (progn
+        (when (fboundp 'counsel-mode) (counsel-mode 1))
+
+        (bind-keys :map counsel-mode-map
+                   ("M-x" . counsel-M-x)
+                   ("C-x C-f" . counsel-find-file)
+                   ("C-c g" . counsel-git)
+                   ("C-c j" . counsel-git-grep)
+                   ("C-c k" . counsel-ag)
+                   ("C-x l" . counsel-locate)
+                   ("C-S-o" . counsel-rhythmbox))
+
+        (bind-keys :map read-expression-map
+                   ("C-r" . counsel-expression-history))))))
 
 ;; eof

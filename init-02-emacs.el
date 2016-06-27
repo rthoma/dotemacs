@@ -1,9 +1,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-02-emacs.el
-;; Emacs, Version 24.5
-;; Windows 10 Pro, Version 1511
-;; Last edited: June 21, 2016
+;; Emacs, Version 25.1.50 (9.0)
+;; OS X Yosemite, Version 10.10.5
+;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -24,10 +24,10 @@
       column-number-mode t)
 
 ;; Bind meta to the Mac command key
-(setq mac-option-key-is-meta nil
-      mac-command-key-is-meta t
-      mac-command-modifier 'meta
-      mac-option-modifier 'super)
+(setq mac-option-key-is-meta t
+      mac-command-key-is-meta nil
+      mac-command-modifier 'control
+      mac-option-modifier 'meta)
 
 ;; Configure backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
@@ -59,5 +59,32 @@
 
 (add-hook 'minibuffer-setup-hook #'rthoma/minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'rthoma/minibuffer-exit-hook)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Miscellaneous package setup
+;;
+(use-package time
+  :init
+  (setq display-time-24hr-format t
+        display-time-default-load-average nil)
+  :config
+  (display-time))
+
+(use-package whitespace
+  :bind ("C-c s w" . whitespace-mode)
+  :config (setq whitespace-line-column nil)
+  :diminish whitespace-mode)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :pin melpa-stable)
+
+(use-package server ;; Start Emacs server (i.e., emacs --daemon)
+  :defer 2
+  :config
+  (when (fboundp 'server-running-p)
+    (unless (server-running-p)
+      (server-start))))
 
 ;; eof

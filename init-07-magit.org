@@ -1,21 +1,21 @@
 # TITLE: init-07-magit
-# DATE: <2016-06-21 Tue>
+# DATE: <2016-06-25 Sat>
 #+AUTHOR: rthoma
 #+STARTUP: indent
 #+STARTUP: content
 
-* Use [[https://github.com/magit/magit][magit]] to enhance the [[https://git-scm.com/][git]] experience.
-** Ensure magit is installed but defer loading.
+* Use [[https://github.com/magit/magit][magit]] to enhance the [[https://git-scm.com/][git]] experience
+** Ensure magit is installed but defer loading
 If [[https://github.com/magit/magit][magit]] isn't installed, retrieve it from [[https://melpa.org/#/magit][MELPA]]. Explicitly defer loading until
 the package is called.
 
- #+BEGIN_SRC emacs-lisp :tangle yes :padline no
+#+BEGIN_SRC emacs-lisp :tangle yes :padline no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-07-magit.el
-;; Emacs, Version 24.5
-;; Windows 10 Pro, Version 1511
-;; Last edited: June 21, 2016
+;; Emacs, Version 25.1.50 (9.0)
+;; OS X Yosemite, Version 10.10.5
+;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -28,32 +28,20 @@ the package is called.
   :ensure t
   :pin melpa-stable
   :defer t
- #+END_SRC
+#+END_SRC
 
 ** This is a placeholder for preload initialization
 
- #+BEGIN_SRC emacs-lisp :tangle yes :padline no
+#+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
   ;; Preload initialization
   ;;
   ;;:bind
- #+END_SRC
-
-** Add the directory with the [[https://git-scm.com/][git]] executable to my path. 
-
- #+BEGIN_SRC emacs-lisp :tangle yes :padline no
-  ;;
-  ;;:init
-  ;;   Commented out for Windows
-  ;;   (progn
-  ;;   ;; Add git directory to path and exec-path
-  ;;     (setenv "PATH" (concat (getenv "PATH") ";C:\\Program Files\\Git\\bin"))
-  ;;     (setq exec-path (append exec-path '("C:\\Program Files\\Git\\bin"))))
- #+END_SRC
+#+END_SRC
 
 ** This is a placeholder for after load configuration
 
- #+BEGIN_SRC emacs-lisp :tangle yes :padline no
+#+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
   ;; After load configuration
   ;;
@@ -62,6 +50,6 @@ the package is called.
   )
 
 ;; eof
- #+END_SRC
+#+END_SRC
 
 # EOF
