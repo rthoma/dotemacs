@@ -6,7 +6,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; org setup
+;; org mode setup
 ;;
 (use-package org
   ;;
@@ -19,10 +19,6 @@
   ;; Preload initialization
   ;;
   :mode ("\\.org\\'" . org-mode)
-  :bind (("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("C-c b" . org-iswitchb))
   ;;
   :init
   (progn
@@ -42,8 +38,12 @@
   ;;
   ;; After load configuration
   ;;
-  ;; :config
-  ;; (progn ;; config stuff)
-  )
+  :config
+  (progn
+    (bind-keys :map org-mode-map
+               ("C-c l" . org-store-link)
+               ("C-c a" . org-agenda)
+               ("C-c c" . org-capture)
+               ("C-c b" . org-iswitchb))))
 
 ;; eof

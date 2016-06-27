@@ -27,7 +27,8 @@
         (load "~/.emacs.d/config/init-05-org.el")
         (load "~/.emacs.d/config/init-06-python.el")
         (load "~/.emacs.d/config/init-07-magit.el")
-        (load "~/.emacs.d/config/init-08-ivy.el")))
+        (load "~/.emacs.d/config/init-08-ivy.el")
+        (load "~/.emacs.d/config/init-09-theme.el")))
 (rthoma/init-emacs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -59,4 +59,25 @@
 (add-hook 'minibuffer-setup-hook #'rthoma/minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'rthoma/minibuffer-exit-hook)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Time setup
+;;
+(use-package time
+  :defer 2
+  :init
+  (setq display-time-24hr-format t
+        display-time-default-load-average nil)
+  :config
+  (display-time))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Whitespace mode setup
+;;
+(use-package whitespace
+  :bind ("C-c s w" . whitespace-mode)
+  :config (setq whitespace-line-column nil)
+  :diminish whitespace-mode)
+
 ;; eof

@@ -19,7 +19,7 @@ specifications imply this already.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; org setup
+;; org mode setup
 ;;
 (use-package org
   ;;
@@ -28,22 +28,15 @@ specifications imply this already.
   :ensure t
   :pin gnu
   :defer t
-#+END_SRC
-
-** Set up some basic key bindings
-
-#+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
   ;; Preload initialization
   ;;
   :mode ("\\.org\\'" . org-mode)
-  :bind (("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("C-c b" . org-iswitchb))
 #+END_SRC
 
-** Specify the archive directory and add our todo keywords
+** Set up the archive directory and our todo list keys
+I use =PROG= for "in progress" and =CANC= for "cancelled."
+The color specifications were selected for use with the zenburn theme.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
@@ -64,15 +57,21 @@ specifications imply this already.
     (setq org-log-done 'time))
 #+END_SRC
 
-** After load configuration currently empty
+** Configure some basic key bindings
+I chose to put the key bindings in the ~:config~ section so I can manually
+specify the map.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
   ;;
   ;; After load configuration
   ;;
-  ;; :config
-  ;; (progn ;; config stuff)
-  )
+  :config
+  (progn
+    (bind-keys :map org-mode-map
+               ("C-c l" . org-store-link)
+               ("C-c a" . org-agenda)
+               ("C-c c" . org-capture)
+               ("C-c b" . org-iswitchb))))
 
 ;; eof
 #+END_SRC

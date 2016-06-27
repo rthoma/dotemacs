@@ -6,7 +6,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; Python setup
+;; Auxiliary packages frequently used with Python
 ;;
 (use-package iedit
   :ensure t
@@ -14,6 +14,50 @@
   :defer t
   :bind ("C-c o" . iedit-mode))
 
+(use-package yasnippet
+  :ensure t
+  :pin gnu
+  :defer t
+  :config
+  (define-key yas-minor-mode-map (kbd "C-c k") #'yas-expand))
+
+(use-package company
+  ;;
+  ;; Package preferences
+  ;;
+  :ensure t
+  :pin gnu
+  :defer t
+  ;;
+  ;; After load configuration
+  ;;
+  :config
+  (progn
+    (use-package company-quickhelp
+      :ensure t
+      :pin melpa-stable
+      :defer t
+      :init
+      (setq company-quickhelp-delay 0.1))
+
+    (defun company-yasnippet-or-completion ()
+      "Solve company yasnippet conflicts."
+      (interactive)
+      (let ((yas-fallback-behavior
+            (apply 'company-complete-common nil)))
+        (yas-expand)))
+
+    (add-hook 'company-mode-hook
+      (lambda ()
+        (substitute-key-definition
+        'company-complete-common
+        'company-yasnippet-or-completion
+         company-active-map)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Python setup
+;;
 (use-package python
   ;;
   ;; Package preferences
@@ -37,38 +81,6 @@
       (progn
         (elpy-use-ipython)
         (elpy-enable)))
-
-    (use-package yasnippet
-      :ensure t
-      :pin gnu
-      :defer t
-      :bind ("C-c k" . yas-expand))
-
-    (use-package company-quickhelp
-      :ensure t
-      :pin melpa-stable
-      :defer t
-      :init
-      (setq company-quickhelp-delay 0.1))
-
-    (use-package pos-tip
-      :ensure t
-      :pin melpa-stable
-      :defer t)
-
-    (defun company-yasnippet-or-completion ()
-      "Solve company yasnippet conflicts."
-      (interactive)
-      (let ((yas-fallback-behavior
-            (apply 'company-complete-common nil)))
-        (yas-expand)))
-
-    (add-hook 'company-mode-hook
-      (lambda ()
-        (substitute-key-definition
-        'company-complete-common
-        'company-yasnippet-or-completion
-         company-active-map)))
 
     (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))))
 
