@@ -25,17 +25,17 @@
   :config
   (progn
     (setq org-directory "~/.emacs.d/orgfiles/"
-          org-archive-location "~/.emacs.d/orgfiles/archive/")
+	  org-archive-location "~/.emacs.d/orgfiles/archive/")
 
     ;; todo keywords
     (setq org-todo-keywords
-          '((sequence "TODO" "PROG" "WAIT" "CANC" "DONE")))
+	  '((sequence "TODO" "PROG" "WAIT" "CANC" "DONE")))
     (setq org-todo-keyword-faces
-          '(("TODO" . org-todo)
-            ("PROG" . (:foreground "#74D3D5" :weight bold)) 
-            ("WAIT" . (:foreground "#F2E1AC" :weight bold))
-            ("CANC" . org-todo)
-            ("DONE" . org-done)))
+	  '(("TODO" . org-todo)
+	    ("PROG" . (:foreground "#74D3D5" :weight bold)) 
+	    ("WAIT" . (:foreground "#F2E1AC" :weight bold))
+	    ("CANC" . org-todo)
+	    ("DONE" . org-done)))
 
     (setq user-full-name "rthoma")
     (setq org-src-preserve-indentation t)
@@ -47,4 +47,5 @@
                ("C-c a" . org-agenda)
                ("C-c c" . org-capture)
                ("C-c b" . org-iswitchb))))
+
 ;; eof

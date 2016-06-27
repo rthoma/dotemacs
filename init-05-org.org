@@ -73,6 +73,7 @@ specify the map.
                ("C-c a" . org-agenda)
                ("C-c c" . org-capture)
                ("C-c b" . org-iswitchb))))
+
 ;; eof
 #+END_SRC
 
