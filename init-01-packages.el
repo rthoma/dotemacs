@@ -3,6 +3,7 @@
 ;; init-01-packages.el
 ;; Emacs, Version 25.1.50 (9.0)
 ;; OS X Yosemite, Version 10.10.5
+;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -11,9 +12,15 @@
 (require 'package)
 (setq package-enable-at-startup nil)
 
-(setq
-  package-archives '(("gnu"          . "https://elpa.gnu.org/packages/")
-                     ("melpa-stable" . "https://stable.melpa.org/packages/")))
+(if (eq system-type 'windows-nt)
+    (setq 
+      package-archives 
+        '(("gnu"          . "http://elpa.gnu.org/packages/")
+          ("melpa-stable" . "http://stable.melpa.org/packages/")))
+  (setq 
+    package-archives 
+      '(("gnu"          . "https://elpa.gnu.org/packages/")
+        ("melpa-stable" . "https://stable.melpa.org/packages/"))))
 
 (setq
   package-selected-packages

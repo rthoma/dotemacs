@@ -3,6 +3,7 @@
 ;; init-04-latex.el
 ;; Emacs, Version 25.1.50 (9.0)
 ;; OS X Yosemite, Version 10.10.5
+;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -11,11 +12,12 @@
 (setq ispell-program-name "aspell"
       ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
 
-;; Add aspell brew directory to path
-(setenv "PATH" (concat (getenv "PATH")
-        ":/usr/local/Cellar/aspell/0.60.6.1/bin"))
-(setq exec-path (append exec-path
-      '("/usr/local/Cellar/aspell/0.60.6.1/bin")))
+;; Add aspell brew directory to path on macOS
+(when (eq system-type 'darwin)
+      (setenv "PATH" (concat (getenv "PATH")
+              ":/usr/local/Cellar/aspell/0.60.6.1/bin"))
+      (setq exec-path (append exec-path
+             '("/usr/local/Cellar/aspell/0.60.6.1/bin"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -32,22 +34,14 @@
   ;; Pre-load initialization
   ;;
   :init
-  (progn
-    ;; Add texbin to path and exec-path
-    (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
-    (setq exec-path (append exec-path '("/usr/texbin"))))
+  (when (eq system-type 'darwin)  ;; Add texbin to path and exec-path
+        (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
+        (setq exec-path (append exec-path '("/usr/texbin"))))
   ;;
   ;; After load configuration
   ;;
   :config
   (progn
-    ;; Start Emacs server (i.e., emacs --daemon)
-    (use-package server
-      :config
-      (when (fboundp 'server-running-p)
-        (unless (server-running-p)
-          (server-start))))
-
     ;; Set the list of viewers for Mac OS X
     ;; The -b displayline option highlights the current line
     ;; The -g displayline option launches Skim in the background
