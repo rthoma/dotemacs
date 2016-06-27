@@ -24,10 +24,17 @@
       column-number-mode t)
 
 ;; Bind meta to the Mac command key
-(setq mac-option-key-is-meta t
-      mac-command-key-is-meta nil
-      mac-command-modifier 'control
-      mac-option-modifier 'meta)
+(when (eq system-type 'darwin)
+      (setq mac-option-key-is-meta t
+            mac-command-key-is-meta nil
+            mac-command-modifier 'control
+            mac-option-modifier 'meta))
+
+;; Swap alt and control using SharpKeys
+(when (eq system-type 'windows-nt)
+      (setq w32-pass-lwindow-to-system nil
+            w32-pass-rwindow-to-system nil
+            w32-pass-alt-to-system nil))
 
 ;; Configure backup settings
 (setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
