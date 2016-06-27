@@ -35,7 +35,18 @@
   (progn
     ;; Add texbin to path and exec-path
     (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
-    (setq exec-path (append exec-path '("/usr/texbin")))
+    (setq exec-path (append exec-path '("/usr/texbin"))))
+  ;;
+  ;; After load configuration
+  ;;
+  :config
+  (progn
+    ;; Start Emacs server (i.e., emacs --daemon)
+    (use-package server
+      :config
+      (when (fboundp 'server-running-p)
+        (unless (server-running-p)
+          (server-start))))
 
     ;; Set the list of viewers for Mac OS X
     ;; The -b displayline option highlights the current line
@@ -56,18 +67,7 @@
 
     ;; Select command latexmk
     (setq TeX-command-default "latexmk")
-    (setq reftex-plug-into-AUCTeX t))
-  ;;
-  ;; After load configuration
-  ;;
-  :config
-  (progn
-    ;; Start Emacs server (i.e., emacs --daemon)
-    (use-package server
-      :config
-      (when (fboundp 'server-running-p)
-        (unless (server-running-p)
-          (server-start))))
+    (setq reftex-plug-into-AUCTeX t)
 
     ;; LaTeX indentation setup
     (defun rthoma/latex-indent-config ()

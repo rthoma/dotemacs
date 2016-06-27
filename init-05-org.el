@@ -6,7 +6,7 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; org setup
+;; org mode setup
 ;;
 (use-package org
   ;;
@@ -19,15 +19,15 @@
   ;; Preload initialization
   ;;
   :mode ("\\.org\\'" . org-mode)
-  :bind (("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
-         ("C-c b" . org-iswitchb))
   ;;
-  :init
+  ;; After load configuration
+  ;;
+  :config
   (progn
     (setq org-directory "~/.emacs.d/orgfiles/"
           org-archive-location "~/.emacs.d/orgfiles/archive/")
+
+    ;; todo keywords
     (setq org-todo-keywords
           '((sequence "TODO" "PROG" "WAIT" "CANC" "DONE")))
     (setq org-todo-keyword-faces
@@ -36,14 +36,15 @@
             ("WAIT" . (:foreground "#F2E1AC" :weight bold))
             ("CANC" . org-todo)
             ("DONE" . org-done)))
+
     (setq user-full-name "rthoma")
     (setq org-src-preserve-indentation t)
-    (setq org-log-done 'time))
-  ;;
-  ;; After load configuration
-  ;;
-  ;; :config
-  ;; (progn ;; config stuff)
-  )
+    (setq org-log-done 'time)
 
+    ;; key bindings
+    (bind-keys :map org-mode-map
+               ("C-c l" . org-store-link)
+               ("C-c a" . org-agenda)
+               ("C-c c" . org-capture)
+               ("C-c b" . org-iswitchb))))
 ;; eof

@@ -59,4 +59,25 @@
 (add-hook 'minibuffer-setup-hook #'rthoma/minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'rthoma/minibuffer-exit-hook)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Miscellaneous package setup
+;;
+(use-package time
+  :defer 2
+  :init
+  (setq display-time-24hr-format t
+        display-time-default-load-average nil)
+  :config
+  (display-time))
+
+(use-package whitespace
+  :bind ("C-c s w" . whitespace-mode)
+  :config (setq whitespace-line-column nil)
+  :diminish whitespace-mode)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :pin melpa-stable)
+
 ;; eof

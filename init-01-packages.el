@@ -17,34 +17,33 @@
 
 (setq
   package-selected-packages
-    '(async                 ;; dependency
-      auctex                ;; installed
-      bind-key              ;; dependency
-      company               ;; dependency for elpy
-      company-quickhelp     ;; installed
-      color-theme           ;; dependency
-      counsel               ;; installed
-      dash                  ;; dependency
-      diminish              ;; dependency
-      elpy                  ;; installed
-      exec-path-from-shell  ;; installed
-      find-file-in-project  ;; dependency for elpy
-      git-commit            ;; dependency for magit
-      highlight-indentation ;; dependency for elpy
-      iedit                 ;; installed
-      ivy                   ;; installed
-      magit                 ;; installed
-      magit-popup           ;; dependency for magit
-      org                   ;; installed
-      pos-tip               ;; dependency for company-quickhelp
-      pyvenv                ;; dependency for elpy
-      s                     ;; installed
-      swiper                ;; installed
-      tablist               ;; dependency
-      use-package           ;; installed
-      with-editor           ;; dependency
-      yasnippet             ;; dependency for elpy
-      zenburn-theme))       ;; installed
+    '(async                 ;; required by magit
+      auctex                ;; 
+      bind-key              ;; required by use-package
+      company               ;; required by elpy
+      company-quickhelp     ;; 
+      color-theme           ;; 
+      counsel               ;; 
+      dash                  ;; required by magit
+      diminish              ;; required by use-package
+      elpy                  ;; 
+      exec-path-from-shell  ;; 
+      find-file-in-project  ;; required by elpy
+      git-commit            ;; required by magit
+      highlight-indentation ;; required by elpy
+      iedit                 ;;
+      ivy                   ;; required by swiper and find-file
+      magit                 ;;
+      magit-popup           ;; required by magit
+      org                   ;;
+      pos-tip               ;; required by company-quickhelp
+      pyvenv                ;; required by elpy
+      swiper                ;; required by counsel
+      tablist               ;; 
+      use-package           ;; 
+      with-editor           ;; required by magit
+      yasnippet             ;; required by elpy
+      zenburn-theme))       ;; 
 
 (package-initialize)
 

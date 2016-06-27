@@ -27,7 +27,8 @@
         (load "~/.emacs.d/config/init-05-org.el")
         (load "~/.emacs.d/config/init-06-python.el")
         (load "~/.emacs.d/config/init-07-magit.el")
-        (load "~/.emacs.d/config/init-08-ivy.el")))
+        (load "~/.emacs.d/config/init-08-ivy.el")
+        (load "~/.emacs.d/config/init-09-theme.el")))
 (rthoma/init-emacs)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -41,7 +42,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(package-selected-packages
+   (quote
+    (async auctex bind-key company company-quickhelp color-theme counsel dash diminish elpy exec-path-from-shell find-file-in-project git-commit highlight-indentation iedit ivy magit magit-popup org pos-tip pyvenv swiper tablist use-package with-editor yasnippet zenburn-theme))))
 ;;
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

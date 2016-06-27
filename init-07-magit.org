@@ -38,18 +38,6 @@ the package is called.
   ;;:bind
 #+END_SRC
 
-** Add the directory with the [[https://git-scm.com/][git]] executable to my path
-
-#+BEGIN_SRC emacs-lisp :tangle yes :padline no
-  ;;
-  ;;:init
-  ;;   Commented out for Mac
-  ;;   (progn
-  ;;   ;; Add git directory to path and exec-path
-  ;;     (setenv "PATH" (concat (getenv "PATH") ";C:\\Program Files\\Git\\bin"))
-  ;;     (setq exec-path (append exec-path '("C:\\Program Files\\Git\\bin"))))
-#+END_SRC
-
 ** This is a placeholder for after load configuration
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
