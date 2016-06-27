@@ -42,9 +42,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (async auctex bind-key company company-quickhelp color-theme counsel dash diminish elpy exec-path-from-shell find-file-in-project git-commit highlight-indentation iedit ivy magit magit-popup org pos-tip pyvenv swiper tablist use-package with-editor yasnippet zenburn-theme))))
+ )
 ;;
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
