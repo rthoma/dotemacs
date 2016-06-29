@@ -7,11 +7,16 @@
 * This file configures [[https://www.melpa.org/#/ivy][ivy]], [[https://github.com/abo-abo/swiper/][swiper]], and [[http://melpa.org/#/counsel][counsel]]
 
 ** Use [[https://github.com/abo-abo/swiper][ivy]] as our generic completion front end
+I can't say enough good things about this package, which is essentially a 
+replacement for =ido mode=. Credit to the developer, [[https://github.com/abo-abo][Oleh Krehel]]. 
+I believe =ivy= was originally a part of =swiper=, but it is now
+available as a standalone package on [[https://melpa.org/#/ivy][MELPA]]. However, the [[https://github.com/abo-abo/swiper/][swiper]] github repo
+still serves as a one-stop-shop for =ivy=, =swiper=, and =counsel=. 
+
 If =ivy= isn't already installed, retrieve it from the GNU ELPA repository.
-I can't say enough good things about this package. Credit to the developer, 
-[[https://github.com/abo-abo][Oleh Krehel]]. I believe =ivy= was originally a part of =swiper=, but it is now
-available as a standalone package on [[https://melpa.org/#/ivy][MELPA]]. Use =swiper= as a replacement for 
-isearch and =counsel= to enhance ivy's completion facilities.
+Note that I made a call to ~bind-keys~ in the ~:config~ section rather than 
+using ~:bind~. I did this because using ~:bind~ implicitly defers loading the 
+package, which I do not want in this case.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :padline no
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -48,7 +53,11 @@ isearch and =counsel= to enhance ivy's completion facilities.
 
     (bind-keys :map ivy-mode-map
                ("C-c C-f" . ivy-recentf))
+#+END_SRC
 
+** Use =swiper= as a replacement for =isearch=
+
+#+BEGIN_SRC emacs-lisp :tangle yes :padline yes
     (use-package swiper
       :ensure t
       :pin melpa-stable
@@ -56,7 +65,11 @@ isearch and =counsel= to enhance ivy's completion facilities.
       :config
       (bind-keys :map ivy-mode-map
                  ("C-s" . swiper)))
+#+END_SRC
 
+** Load =counsel= to augment ivy's completion facilities
+
+#+BEGIN_SRC emacs-lisp :tangle yes :padline yes
     (use-package counsel
       :ensure t
       :pin melpa-stable
