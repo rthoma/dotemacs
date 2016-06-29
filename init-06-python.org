@@ -1,3 +1,14 @@
+#+TITLE: init-06-python
+#+DATE: <2016-06-28 Tue>
+#+AUTHOR: rthoma
+#+STARTUP: indent
+#+STARTUP: content
+
+* Setup for Python and a collection of useful auxiliary packages
+
+** Fancy editing with [[][iedit]]
+
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-06-python.el
@@ -13,7 +24,11 @@
   :ensure t
   :pin melpa-stable
   :bind ("C-c i" . iedit-mode))
+#+END_SRC
 
+** Snippet expansion with [[][yasnippet]]
+
+#+BEGIN_SRC emacs-lisp :tangle yes :padline yes
 (use-package yasnippet
   :ensure t
   :pin gnu
@@ -21,7 +36,12 @@
   :config
   (bind-keys :map yas-minor-mode-map
              ("C-c e" . yas-expand)))
+#+END_SRC
 
+** Auto completion with [[][company]]
+Use =company-quickhelp= to provide popup-style documentation in =company= mode.
+
+#+BEGIN_SRC emacs-lisp :tangle yes :padline yes
 (use-package company
   ;;
   ;; Package preferences
@@ -61,7 +81,11 @@
         'company-complete-common
         'company-yasnippet-or-completion
          company-active-map)))))
+#+END_SRC
 
+** Excellent Python good times with [[][elpy]]
+
+#+BEGIN_SRC emacs-lisp :tangle yes :padline yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Python setup
@@ -87,3 +111,6 @@
       (elpy-enable))))
 
 ;; eof
+#+END_SRC
+
+# EOF
