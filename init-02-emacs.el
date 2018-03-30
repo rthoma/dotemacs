@@ -67,6 +67,9 @@
 (add-hook 'minibuffer-setup-hook #'rthoma/minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'rthoma/minibuffer-exit-hook)
 
+;; Delete trailing whitespace
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Miscellaneous package setup
@@ -78,14 +81,11 @@
   :config
   (display-time))
 
+(bind-key* "C-j" (lambda () (interactive) (insert " ")))
 (use-package whitespace
   :bind ("C-c s w" . whitespace-mode)
   :config (setq whitespace-line-column nil)
   :diminish whitespace-mode)
-
-(use-package exec-path-from-shell
-  :ensure t
-  :pin melpa-stable)
 
 (use-package server ;; Start Emacs server (i.e., emacs --daemon)
   :defer 2
@@ -93,5 +93,14 @@
   (when (fboundp 'server-running-p)
     (unless (server-running-p)
       (server-start))))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :pin melpa-stable
+  :defer 3
+  :config
+  ;; Initialize exec-path from shell on macOS
+  (when (memq window-system '(mac ns))
+        (exec-path-from-shell-initialize)))
 
 ;; eof

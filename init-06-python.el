@@ -39,6 +39,10 @@
   ;;
   :config
   (progn
+    (bind-keys :map company-active-map
+               ("C-n" . company-select-next)
+               ("C-p" . company-select-previous))
+
     (use-package company-quickhelp
       :ensure t
       :pin melpa-stable
@@ -48,11 +52,11 @@
       :config
       (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1)))
 
-    (defun company-yasnippet-or-completion ()
+    (defun rthoma/company-yasnippet-or-completion ()
       "Solve company yasnippet conflicts."
       (interactive)
       (let ((yas-fallback-behavior
-            (apply 'company-complete-common nil)))
+            (apply #'rthoma/company-complete-common nil)))
         (yas-expand)))
 
     (add-hook 'company-mode-hook
@@ -68,7 +72,7 @@
 ;;
 (use-package python
   ;;
-  ;; Preload initialization
+  ;; Pre-load initialization
   ;;
   :defer t
   ;;:init
