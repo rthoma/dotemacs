@@ -1,11 +1,8 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-04-latex.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Spell-checker setup
 ;;
@@ -14,12 +11,12 @@
 
 ;; Add aspell brew directory to path on macOS
 (when (eq system-type 'darwin)
-      (setenv "PATH" (concat (getenv "PATH")
-              ":/usr/local/Cellar/aspell/0.60.6.1/bin"))
-      (setq exec-path (append exec-path
-             '("/usr/local/Cellar/aspell/0.60.6.1/bin"))))
+  (setenv "PATH" (concat (getenv "PATH")
+    ":/usr/local/Cellar/aspell/0.60.6.1/bin"))
+  (setq exec-path (append exec-path
+    '("/usr/local/Cellar/aspell/0.60.6.1/bin"))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; LaTeX setup
 ;;
@@ -35,33 +32,32 @@
   ;;
   :init
   (when (eq system-type 'darwin)  ;; Add texbin to path and exec-path
-        (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
-        (setq exec-path (append exec-path '("/usr/texbin"))))
+    (setenv "PATH" (concat (getenv "PATH") ":/usr/texbin"))
+    (setq exec-path (append exec-path '("/usr/texbin"))))
   ;;
   ;; After load configuration
   ;;
   :config
   (progn
-    ;; Set the list of viewers for Mac OS X
+    ;; Set the list of viewers for macOS
     ;; The -b displayline option highlights the current line
     ;; The -g displayline option launches Skim in the background
-    (setq
-     TeX-view-program-list
-     '(("Preview.app" "open -a Preview.app %o")
-       ("Skim" "open -a Skim.app %o")
-       ("displayline"
-        "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
-       ("open" "open %o")))
+    (setq TeX-view-program-list
+      '(("Preview.app" "open -a Preview.app %o")
+        ("Skim" "open -a Skim.app %o")
+        ("displayline" "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
+        ("open" "open %o")))
 
     ;; Select the viewers for each file type
     (setq TeX-view-program-selection
-          '((output-dvi "open")
-            (output-pdf "displayline")
-            (output-html "open")))
+      '((output-dvi "open")
+        (output-pdf "displayline")
+        (output-html "open")))
 
     ;; Select command latexmk
     (setq TeX-command-default "latexmk")
     (setq reftex-plug-into-AUCTeX t)
+    (setq bibtex-align-at-equal-sign t)
 
     ;; LaTeX indentation setup
     (defun rthoma/latex-indent-config ()
@@ -78,9 +74,10 @@
     ;; Set up LaTeX to use latexmk and make available by C-c C-c
     (add-hook 'LaTeX-mode-hook
       (lambda () (push
-       '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
+        '("latexmk" "latexmk -pdf %s" TeX-run-TeX nil t
           :help "Run latexmk on file")
             TeX-command-list)))
+
     (add-hook 'TeX-mode-hook (lambda () (setq TeX-command-default "latexmk")))
 
     ;; Turn on flyspell, math mode, and reftex by default
@@ -89,6 +86,10 @@
     (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
 
     ;; Add files with this extension to the clean up list
-    (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk" t)))
+    (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk" t)
+    (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.vrb" t)
+
+    (bind-keys :map LaTeX-mode-map
+      ("C-c o" . fill-region))))
 
 ;; eof

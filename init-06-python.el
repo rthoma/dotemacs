@@ -1,11 +1,8 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-06-python.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Auxiliary packages frequently used with Python
 ;;
@@ -20,7 +17,7 @@
   :defer t
   :config
   (bind-keys :map yas-minor-mode-map
-             ("C-c e" . yas-expand)))
+    ("C-c e" . yas-expand)))
 
 (use-package company
   ;;
@@ -39,6 +36,10 @@
   ;;
   :config
   (progn
+    (bind-keys :map company-active-map
+      ("C-n" . company-select-next)
+      ("C-p" . company-select-previous))
+
     (use-package company-quickhelp
       :ensure t
       :pin melpa-stable
@@ -62,10 +63,14 @@
         'company-yasnippet-or-completion
          company-active-map)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Python setup
 ;;
+;; https://github.com/jorgenschaefer/elpy/issues/908
+;;
+(setenv "IPY_TEST_SIMPLE_PROMPT" "1")
+
 (use-package python
   ;;
   ;; Preload initialization

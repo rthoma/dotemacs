@@ -1,11 +1,8 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-02-emacs.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Basic Emacs setup
 ;;
@@ -23,27 +20,16 @@
 (setq line-number-mode t
       column-number-mode t)
 
-(cond
-  ;; Bind meta to the Mac command key
-  ((eq system-type 'darwin)
-   (setq ns-command-modifier 'control
-         ns-option-modifier 'meta))
+;; Bind meta to the Mac command key
+(setq ns-command-modifier 'control
+      ns-option-modifier 'meta)
 
-  ;; Swap alt and control using SharpKeys
-  ((eq system-type 'windows-nt)
-   (setq w32-pass-lwindow-to-system nil
-         w32-pass-rwindow-to-system nil
-         w32-pass-alt-to-system nil)))
+;; Swap alt and control using SharpKeys on Windows
+(setq w32-pass-lwindow-to-system nil
+      w32-pass-rwindow-to-system nil
+      w32-pass-alt-to-system nil)
 
-;; Configure backup settings
-(setq backup-directory-alist '(("." . "~/.emacs.d/saves")))
-(setq backup-by-copying t
-      delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 4
-      version-control t)
-
-;; Answer "y" rather than "yes"
+;; Answer 'y' rather than 'yes'
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Custom visual bell function
@@ -66,7 +52,7 @@
 (add-hook 'minibuffer-setup-hook #'rthoma/minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'rthoma/minibuffer-exit-hook)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Miscellaneous package setup
 ;;
@@ -78,16 +64,23 @@
   (display-time))
 
 (use-package whitespace
+  :diminish whitespace-mode
   :bind ("C-c s w" . whitespace-mode)
-  :config (setq whitespace-line-column nil)
-  :diminish whitespace-mode)
+  :init
+  (progn
+    (setq whitespace-line-column 79)
+    (add-hook 'before-save-hook #'delete-trailing-whitespace)))
 
 (use-package exec-path-from-shell
   :ensure t
-  :pin melpa-stable)
+  :pin melpa-stable
+  :defer 2
+  :config
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)))
 
 (use-package server ;; Start Emacs server (i.e., emacs --daemon)
-  :defer 2
+  :defer 3
   :config
   (when (fboundp 'server-running-p)
     (unless (server-running-p)

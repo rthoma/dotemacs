@@ -1,11 +1,8 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-08-ivy.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; ivy setup
 ;;
@@ -31,7 +28,7 @@
     (when (fboundp 'ivy-mode) (ivy-mode 1))
 
     (bind-keys :map ivy-mode-map
-               ("C-c C-f" . ivy-recentf))
+      ("C-c C-f" . ivy-recentf))
 
     (use-package swiper
       :ensure t
@@ -39,7 +36,7 @@
       :init
       :config
       (bind-keys :map ivy-mode-map
-                 ("C-s" . swiper)))
+        ("C-s" . swiper)))
 
     (use-package counsel
       :ensure t
@@ -50,15 +47,15 @@
         (when (fboundp 'counsel-mode) (counsel-mode 1))
 
         (bind-keys :map counsel-mode-map
-                   ("M-x" . counsel-M-x)
-                   ("C-x C-f" . counsel-find-file)
-                   ("C-c g" . counsel-git)
-                   ("C-c j" . counsel-git-grep)
-                   ("C-c k" . counsel-ag)
-                   ("C-x l" . counsel-locate)
-                   ("C-S-o" . counsel-rhythmbox))
+          ("M-x" . counsel-M-x)
+          ("C-x C-f" . counsel-find-file)
+          ("C-c g" . counsel-git)
+          ("C-c j" . counsel-git-grep)
+          ("C-c k" . counsel-ag)
+          ("C-x l" . counsel-locate)
+          ("C-S-o" . counsel-rhythmbox))
 
         (bind-keys :map read-expression-map
-                   ("C-r" . counsel-expression-history))))))
+          ("C-r" . counsel-expression-history))))))
 
 ;; eof
