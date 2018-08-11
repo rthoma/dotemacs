@@ -89,6 +89,9 @@
     (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
 
     ;; Add files with this extension to the clean up list
-    (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk" t)))
+    (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk" t)
+
+    (bind-keys :map LaTeX-mode-map
+      ("C-c o" . fill-region))))
 
 ;; eof

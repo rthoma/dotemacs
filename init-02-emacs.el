@@ -13,8 +13,8 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Font setup
-(add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-12"))
-(set-frame-font "Bitstream Vera Sans Mono-12" nil t)
+(add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-11"))
+(set-frame-font "Bitstream Vera Sans Mono-11" nil t)
 
 ;; Winner mode for switching between window layouts
 (when (fboundp 'winner-mode) (winner-mode 1))
@@ -79,9 +79,12 @@
   (display-time))
 
 (use-package whitespace
+  :diminish whitespace-mode
   :bind ("C-c s w" . whitespace-mode)
-  :config (setq whitespace-line-column nil)
-  :diminish whitespace-mode)
+  :init
+  (progn
+    (setq whitespace-line-column 79)
+    (add-hook 'before-save-hook #'delete-trailing-whitespace)))
 
 (use-package exec-path-from-shell
   :ensure t

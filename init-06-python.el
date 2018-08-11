@@ -13,7 +13,7 @@
   :ensure t
   :pin melpa-stable
   :defer t
-  :bind ("C-c o" . iedit-mode))
+  :bind ("C-c i" . iedit-mode))
 
 (use-package yasnippet
   :ensure t
@@ -80,7 +80,8 @@
       (setq elpy-rpc-backend "jedi")
       :config
       (progn
-        (elpy-use-ipython)
+        (setq python-shell-interpreter "ipython"
+              python-shell-interpreter-args "-i --simple-prompt")
         (elpy-enable)))
 
     (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))))
