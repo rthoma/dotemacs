@@ -1,9 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-05-org.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -33,7 +30,7 @@
           '((sequence "TODO" "PROG" "WAIT" "CANC" "DONE")))
     (setq org-todo-keyword-faces
           '(("TODO" . org-todo)
-            ("PROG" . (:foreground "#74D3D5" :weight bold)) 
+            ("PROG" . (:foreground "#74D3D5" :weight bold))
             ("WAIT" . (:foreground "#F2E1AC" :weight bold))
             ("CANC" . org-todo)
             ("DONE" . org-done)))

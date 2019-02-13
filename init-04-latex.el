@@ -1,9 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-04-latex.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -62,6 +59,7 @@
     ;; Select command latexmk
     (setq TeX-command-default "latexmk")
     (setq reftex-plug-into-AUCTeX t)
+    (setq bibtex-align-at-equal-sign t)
 
     ;; LaTeX indentation setup
     (defun rthoma/latex-indent-config ()

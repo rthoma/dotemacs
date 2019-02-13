@@ -1,9 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-02-emacs.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -13,8 +10,8 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Font setup
-(add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-11"))
-(set-frame-font "Bitstream Vera Sans Mono-11" nil t)
+(add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-12"))
+(set-frame-font "Bitstream Vera Sans Mono-12" nil t)
 
 ;; Winner mode for switching between window layouts
 (when (fboundp 'winner-mode) (winner-mode 1))
@@ -59,10 +56,10 @@
 
 ;; Prevent excessive garbage collection in the mini-buffer
 (defun rthoma/minibuffer-setup-hook ()
-  (setq gc-cons-threshold 10000000)) ;; 10 MB
+  (setq gc-cons-threshold 10000000))  ;; 10 MB
 
 (defun rthoma/minibuffer-exit-hook ()
-  (setq gc-cons-threshold 800000)) ;; 800 kB
+  (setq gc-cons-threshold 800000))  ;; 800 kB
 
 (add-hook 'minibuffer-setup-hook #'rthoma/minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'rthoma/minibuffer-exit-hook)
@@ -90,7 +87,7 @@
   :ensure t
   :pin melpa-stable)
 
-(use-package server ;; Start Emacs server (i.e., emacs --daemon)
+(use-package server  ;; Start Emacs server (i.e., emacs --daemon)
   :defer 2
   :config
   (when (fboundp 'server-running-p)

@@ -1,9 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; init-06-python.el
-;; Emacs, Version 25.1.50 (9.0)
-;; OS X Yosemite, Version 10.10.5
-;; Windows 10 Pro, Version 1511, Build 10586.420
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -78,11 +75,23 @@
       :pin melpa-stable
       :init
       (setq elpy-rpc-backend "jedi")
+      (setq elpy-shell-use-project-root nil)
       :config
       (progn
         (setq python-shell-interpreter "ipython"
               python-shell-interpreter-args "-i --simple-prompt")
         (elpy-enable)))
+
+    ;; Python indentation setup
+    (defun rthoma/python-indent-config ()
+      "For use in python-mode-hook."
+      (local-set-key (kbd "<tab>")
+        (lambda () (interactive) (rthoma/indent-by-inserting-spaces 4)))
+      (local-set-key (kbd "<backtab>")
+        (lambda () (interactive) (rthoma/unindent-by-removing-spaces 4))))
+
+    ;; Add custom indentation to mode hook
+    (add-hook 'python-mode-hook #'rthoma/python-indent-config)
 
     (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))))
 
