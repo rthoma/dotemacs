@@ -12,41 +12,47 @@
 (if (eq system-type 'windows-nt)
     (setq
       package-archives
-        '(("gnu"          . "http://elpa.gnu.org/packages/")
+        '(("gnu"   . "http://elpa.gnu.org/packages/")
+          ("melpa" . "http://melpa.org/packages/")
           ("melpa-stable" . "http://stable.melpa.org/packages/")))
   (setq
     package-archives
-      '(("gnu"          . "https://elpa.gnu.org/packages/")
+      '(("gnu"   . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/"))))
 
 (setq
   package-selected-packages
-    '(async                  ;; required by magit
+    '(async                  ;;
       auctex                 ;;
-      bind-key               ;; required by use-package
-      company                ;; required by elpy
-      company-quickhelp      ;;
+      bind-key               ;;
       color-theme            ;;
+      company                ;;
+      company-quickhelp      ;;
       counsel                ;;
-      dash                   ;; required by magit
-      diminish               ;; required by use-package
+      dash                   ;;
+      diminish               ;;
       elpy                   ;;
       exec-path-from-shell   ;;
-      find-file-in-project   ;; required by elpy
-      git-commit             ;; required by magit
-      highlight-indentation  ;; required by elpy
+      find-file-in-project   ;;
+      ghub                   ;;
+      git-commit             ;;
+      graphql                ;;
+      highlight-indentation  ;;
       iedit                  ;;
-      ivy                    ;; required by swiper and find-file
+      ivy                    ;;
       magit                  ;;
-      magit-popup            ;; required by magit
+      magit-popup            ;;
       org                    ;;
-      pos-tip                ;; required by company-quickhelp
-      pyvenv                 ;; required by elpy
-      swiper                 ;; required by counsel
+      pos-tip                ;;
+      pyvenv                 ;;
+      s                      ;;
+      swiper                 ;;
       tablist                ;;
+      treepy                 ;;
       use-package            ;;
-      with-editor            ;; required by magit
-      yasnippet              ;; required by elpy
+      with-editor            ;;
+      yasnippet              ;;
       zenburn-theme))        ;;
 
 (when (version< emacs-version "27.0")

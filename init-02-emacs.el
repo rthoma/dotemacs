@@ -10,8 +10,13 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Font setup
-(add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-12"))
-(set-frame-font "Bitstream Vera Sans Mono-12" nil t)
+(when (eq system-type 'darwin)
+  (add-to-list 'default-frame-alist '(font . "Menlo-12"))
+  (set-frame-font "Menlo-12" nil t))
+
+(when (eq system-type 'windows-nt)
+  (add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-12"))
+  (set-frame-font "Bitstream Vera Sans Mono-12" nil t))
 
 ;; Winner mode for switching between window layouts
 (when (fboundp 'winner-mode) (winner-mode 1))
@@ -77,7 +82,8 @@
 
 (use-package whitespace
   :diminish whitespace-mode
-  :bind ("C-c s w" . whitespace-mode)
+  :bind (("C-c s w" . whitespace-mode)
+         ("C-j" . (lambda () (interactive) (insert " "))))
   :init
   (progn
     (setq whitespace-line-column 79)
@@ -85,7 +91,12 @@
 
 (use-package exec-path-from-shell
   :ensure t
-  :pin melpa-stable)
+  :pin melpa-stable
+  :defer 3
+  :config
+  ;; Initialize exec-path from shell on macOS
+  (when (eq system-type 'darwin)
+        (exec-path-from-shell-initialize)))
 
 (use-package server  ;; Start Emacs server (i.e., emacs --daemon)
   :defer 2

@@ -20,25 +20,27 @@
   (define-key yas-minor-mode-map (kbd "C-c k") #'yas-expand))
 
 (use-package company
-  ;;
-  ;; Package preferences
-  ;;
   :ensure t
   :pin gnu
   :defer t
-  ;;
-  ;; After load configuration
-  ;;
+  :init
+  (setq company-idle-delay 0.1)
   :config
   (progn
+    (bind-keys :map company-active-map
+               ("C-n" . company-select-next)
+               ("C-p" . company-select-previous))
+
     (use-package company-quickhelp
       :ensure t
       :pin melpa-stable
       :defer t
       :init
-      (setq company-quickhelp-delay 0.1))
+      (setq company-quickhelp-delay 0.1)
+      :config
+      (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1)))
 
-    (defun company-yasnippet-or-completion ()
+    (defun rthoma/company-yasnippet-or-completion ()
       "Solve company yasnippet conflicts."
       (interactive)
       (let ((yas-fallback-behavior
@@ -48,26 +50,16 @@
     (add-hook 'company-mode-hook
       (lambda ()
         (substitute-key-definition
-        'company-complete-common
-        'company-yasnippet-or-completion
-         company-active-map)))))
+          'company-complete-common
+         #'rthoma/company-yasnippet-or-completion
+           company-active-map)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; Python setup
 ;;
 (use-package python
-  ;;
-  ;; Package preferences
-  ;;
   :defer t
-  ;;
-  ;; Preload initialization
-  ;;
-  ;;:init
-  ;;
-  ;; After load configuration
-  ;;
   :config
   (progn
     (use-package elpy
@@ -78,9 +70,14 @@
       (setq elpy-shell-use-project-root nil)
       :config
       (progn
-        (setq python-shell-interpreter "ipython"
-              python-shell-interpreter-args "-i --simple-prompt")
-        (elpy-enable)))
+        (when (eq system-type 'darwin)
+              (setq python-shell-interpreter "ipython3"
+                    python-shell-interpreter-args "-i --simple-prompt"))
+
+        (when (eq system-type 'windows-nt)
+              (elpy-use-ipython))
+
+        (elpy-enable))))
 
     ;; Python indentation setup
     (defun rthoma/python-indent-config ()
@@ -93,6 +90,26 @@
     ;; Add custom indentation to mode hook
     (add-hook 'python-mode-hook #'rthoma/python-indent-config)
 
-    (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))))
+    (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Octave setup
+;;
+(use-package octave
+  :ensure t
+  :mode ("\\.m$" . octave-mode)
+  :config
+  (progn
+    ;; Octave indentation setup
+    (defun rthoma/octave-indent-config ()
+      "For use in octave-mode-hook."
+      (local-set-key (kbd "<tab>")
+        (lambda () (interactive) (rthoma/indent-by-inserting-spaces 4)))
+      (local-set-key (kbd "<backtab>")
+        (lambda () (interactive) (rthoma/unindent-by-removing-spaces 4))))
+
+    ;; Add custom indentation to mode hook
+    (add-hook 'octave-mode-hook #'rthoma/octave-indent-config)))
 
 ;; eof

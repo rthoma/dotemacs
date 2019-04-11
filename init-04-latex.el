@@ -6,15 +6,20 @@
 ;;
 ;; Spell-checker setup
 ;;
-(setq ispell-program-name "aspell"
-      ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
-
 ;; Add aspell brew directory to path on macOS
 (when (eq system-type 'darwin)
       (setenv "PATH" (concat (getenv "PATH")
-              ":/usr/local/Cellar/aspell/0.60.6.1/bin"))
+              ":/usr/local/Cellar/aspell/0.60.6.1_1/bin"))
       (setq exec-path (append exec-path
-             '("/usr/local/Cellar/aspell/0.60.6.1/bin"))))
+             '("/usr/local/Cellar/aspell/0.60.6.1_1/bin"))))
+
+;; Tell Windows where to find aspell
+(when (eq system-type 'windows-nt)
+      (setq ispell-program-name "C:/Program Files (x86)/Aspell/bin/aspell.exe"))
+
+;; Settings for aspell
+(setq ispell-program-name "aspell"
+      ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -39,22 +44,35 @@
   ;;
   :config
   (progn
-    ;; Set the list of viewers for Mac OS X
-    ;; The -b displayline option highlights the current line
-    ;; The -g displayline option launches Skim in the background
-    (setq
-     TeX-view-program-list
-     '(("Preview.app" "open -a Preview.app %o")
-       ("Skim" "open -a Skim.app %o")
-       ("displayline"
-        "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
-       ("open" "open %o")))
+    ;; Set the list of viewers for macOS
+    (when (eq system-type 'darwin)
+      (setq TeX-view-program-list
+       '(("Preview" "open -a Preview.app %o")
+         ("Skim" "open -a Skim.app %o")
+         ("displayline"
+          "/Applications/Skim.app/Contents/SharedSupport/displayline -b %n %o %b")
+         ("open" "open %o")))
 
-    ;; Select the viewers for each file type
-    (setq TeX-view-program-selection
-          '((output-dvi "open")
-            (output-pdf "displayline")
-            (output-html "open")))
+      ;; Select the viewers for each file type
+      (setq TeX-view-program-selection
+       '((output-dvi "open")
+         (output-pdf "displayline")
+         (output-html "open"))))
+
+    ;; Set the list of viewers for Windows
+    (when (eq system-type 'windows-nt)
+      (setq TeX-view-program-list
+       '(("Sumatra"
+          "\"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe\" -reuse-instance %o")
+         ("displayline"
+          "\"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe\" -reuse-instance -forward-search %b %n %o")
+         ("open" "open %o")))
+
+      ;; Select the viewers for each file type
+      (setq TeX-view-program-selection
+       '((output-dvi "open")
+         (output-pdf "displayline")
+         (output-html "open"))))
 
     ;; Select command latexmk
     (setq TeX-command-default "latexmk")
@@ -72,6 +90,7 @@
     ;; Add custom indentation to mode hook
     (add-hook 'LaTeX-mode-hook #'rthoma/latex-indent-config)
     (add-hook 'bibtex-mode-hook #'rthoma/latex-indent-config)
+    (add-hook 'bibtex-mode-hook (lambda () (set-fill-column 88)))
 
     ;; Set up LaTeX to use latexmk and make available by C-c C-c
     (add-hook 'LaTeX-mode-hook
@@ -89,7 +108,8 @@
     ;; Add files with this extension to the clean up list
     (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk" t)
 
-    (bind-keys :map LaTeX-mode-map
-      ("C-c o" . fill-region))))
+    ;; Key bindings
+    (bind-keys (("C-c o" . fill-region)
+                :map LaTeX-mode-map))))
 
 ;; eof

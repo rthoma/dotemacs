@@ -11,7 +11,7 @@
   ;; Package preferences
   ;;
   :ensure t
-  :pin gnu
+  :pin melpa-stable
   ;;
   ;; Pre-load initialization
   ;;
