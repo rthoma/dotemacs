@@ -33,7 +33,8 @@
   :pin melpa-stable
   :defer t
   ;;
-  ;; Pre-load initialization
+  :bind (("C-c o" . fill-region)
+         :map LaTeX-mode-map)
   ;;
   :init
   (when (eq system-type 'darwin)  ;; Add texbin to path and exec-path
@@ -106,10 +107,6 @@
     (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
 
     ;; Add files with this extension to the clean up list
-    (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk" t)
-
-    ;; Key bindings
-    (bind-keys (("C-c o" . fill-region)
-                :map LaTeX-mode-map))))
+    (add-to-list 'LaTeX-clean-intermediate-suffixes "\\.fdb_latexmk" t)))
 
 ;; eof
