@@ -75,9 +75,10 @@
                     python-shell-interpreter-args "-i --simple-prompt"))
 
         (when (eq system-type 'windows-nt)
-              (elpy-use-ipython))
+              (setq python-shell-interpreter "ipython"
+                    python-shell-interpreter-args "-i --simple-prompt"))
 
-        (elpy-enable))))
+        (elpy-enable)))
 
     ;; Python indentation setup
     (defun rthoma/python-indent-config ()
@@ -90,7 +91,7 @@
     ;; Add custom indentation to mode hook
     (add-hook 'python-mode-hook #'rthoma/python-indent-config)
 
-    (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1)))
+    (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
