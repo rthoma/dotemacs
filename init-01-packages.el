@@ -26,7 +26,6 @@
     '(async                  ;;
       auctex                 ;;
       bind-key               ;;
-      color-theme            ;;
       company                ;;
       company-quickhelp      ;;
       counsel                ;;
@@ -49,6 +48,7 @@
       s                      ;;
       swiper                 ;;
       tablist                ;;
+      transient              ;;
       treepy                 ;;
       use-package            ;;
       with-editor            ;;
@@ -65,5 +65,15 @@
 
 (eval-and-compile
   (require 'use-package))
+
+;; Fetch the list of packages available
+(unless package-archive-contents
+  (or (file-exists-p package-user-dir)
+      (package-refresh-contents)))
+
+;; Install the missing packages
+(dolist (package package-selected-packages)
+ (unless (package-installed-p package)
+   (package-install package)))
 
 ;; eof

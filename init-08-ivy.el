@@ -11,7 +11,7 @@
   ;; Package preferences
   ;;
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   ;;
   ;; Pre-load initialization
   ;;
@@ -32,7 +32,7 @@
 
     (use-package swiper
       :ensure t
-      :pin melpa-stable
+      :pin melpa
       :init
       :config
       (bind-keys :map ivy-mode-map
@@ -40,7 +40,7 @@
 
     (use-package counsel
       :ensure t
-      :pin melpa-stable
+      :pin melpa
       :init
       :config
       (progn

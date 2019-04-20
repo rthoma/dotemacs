@@ -8,7 +8,7 @@
 ;;
 (use-package iedit
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :defer t
   :bind ("C-c i" . iedit-mode))
 
@@ -33,7 +33,7 @@
 
     (use-package company-quickhelp
       :ensure t
-      :pin melpa-stable
+      :pin melpa
       :defer t
       :init
       (setq company-quickhelp-delay 0.1)
@@ -64,7 +64,7 @@
   (progn
     (use-package elpy
       :ensure t
-      :pin melpa-stable
+      :pin melpa
       :init
       (setq elpy-rpc-backend "jedi")
       (setq elpy-shell-use-project-root nil)

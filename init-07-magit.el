@@ -11,7 +11,7 @@
   ;; Package preferences
   ;;
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :defer t
   ;;
   ;; Preload initialization

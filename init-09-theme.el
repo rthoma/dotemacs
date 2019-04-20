@@ -8,7 +8,7 @@
 ;;
 (use-package zenburn-theme
   :ensure t
-  :pin melpa-stable
+  :pin melpa
   :init
   (progn
     (setq custom-safe-themes

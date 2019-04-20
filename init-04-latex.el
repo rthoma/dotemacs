@@ -30,7 +30,7 @@
   ;; Package preferences
   ;;
   :ensure auctex
-  :pin melpa-stable
+  :pin melpa
   :defer t
   ;;
   :bind (("C-c o" . fill-region)
