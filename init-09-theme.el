@@ -16,7 +16,7 @@
         "afbb40954f67924d3153f27b6d3399df221b2050f2a72eb2cfa8d29ca783c5a8"))
     (load-theme 'zenburn t)
 
-  (when (eq system-type 'darwin)
-        (delete-file "~/Library/Colors/Emacs.clr"))))
+    (when (eq system-type 'darwin)
+          (delete-file "~/Library/Colors/Emacs.clr"))))
 
 ;; eof

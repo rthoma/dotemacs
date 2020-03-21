@@ -11,15 +11,18 @@
       (setenv "PATH" (concat (getenv "PATH")
               ":/usr/local/Cellar/aspell/0.60.6.1_1/bin"))
       (setq exec-path (append exec-path
-             '("/usr/local/Cellar/aspell/0.60.6.1_1/bin"))))
+             '("/usr/local/Cellar/aspell/0.60.6.1_1/bin")))
 
-;; Tell Windows where to find aspell
+      ;; Settings for aspell
+      (setq ispell-program-name "aspell"
+            ispell-extra-args '("--sug-mode=ultra" "--lang=en_US")))
+
+;; Tell Windows where to find hunspell
 (when (eq system-type 'windows-nt)
-      (setq ispell-program-name "C:/Program Files (x86)/Aspell/bin/aspell.exe"))
-
-;; Settings for aspell
-(setq ispell-program-name "aspell"
-      ispell-extra-args '("--sug-mode=ultra" "--lang=en_US"))
+      (setq ispell-program-name "C:/msys64/mingw64/bin/hunspell")
+      (setq ispell-local-dictionary "en_US")
+      (setq ispell-local-dictionary-alist
+      '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -80,17 +83,32 @@
     (setq reftex-plug-into-AUCTeX t)
     (setq bibtex-align-at-equal-sign t)
 
-    ;; LaTeX indentation setup
-    (defun rthoma/latex-indent-config ()
-      "For use in LaTeX-mode-hook."
-      (local-set-key (kbd "<tab>")
-        (lambda () (interactive) (rthoma/indent-by-inserting-spaces 4)))
-      (local-set-key (kbd "<backtab>")
-        (lambda () (interactive) (rthoma/unindent-by-removing-spaces 4))))
+    (setq LaTeX-indent-environment-list
+         '(("frame")
+           ("verbatim" current-indentation)
+           ("verbatim*" current-indentation)
+           ("tabular")     ;;  LaTeX-indent-tabular
+           ("tabular*")    ;;  LaTeX-indent-tabular
+           ("align")       ;;  LaTeX-indent-tabular
+           ("align*")      ;;  LaTeX-indent-tabular
+           ("array")       ;;  LaTeX-indent-tabular
+           ("eqnarray")    ;;  LaTeX-indent-tabular
+           ("eqnarray*")   ;;  LaTeX-indent-tabular
+           ("displaymath")
+           ("equation")
+           ("equation*")
+           ("picture")
+           ("tabbing")))
 
-    ;; Add custom indentation to mode hook
-    (add-hook 'LaTeX-mode-hook #'rthoma/latex-indent-config)
-    (add-hook 'bibtex-mode-hook #'rthoma/latex-indent-config)
+    (setq LaTeX-indent-level 4)
+    (setq LaTeX-item-indent 0)
+    (setq LaTeX-left-right-indent-level 4)
+    (setq TeX-brace-indent-level 4)
+    (setq tex-indent-item 4)
+    (setq tex-indent-basic 4)
+    (setq tex-indent-arg 4)
+    (setq reftex-level-indent 4)
+
     (add-hook 'bibtex-mode-hook (lambda () (set-fill-column 88)))
 
     ;; Set up LaTeX to use latexmk and make available by C-c C-c
