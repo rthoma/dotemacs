@@ -72,7 +72,7 @@
       (progn
         (when (eq system-type 'darwin)
               (setq python-shell-interpreter "ipython3"
-                    python-shell-interpreter-args "-i --simple-prompt"))
+                    python-shell-interpreter-args "--simple-prompt -c exec('__import__(\\'readline\\')') -i"))
 
         (when (eq system-type 'windows-nt)
               (setq python-shell-interpreter "ipython"
@@ -80,16 +80,16 @@
 
         (elpy-enable)))
 
-    ;; Python indentation setup
-    (defun rthoma/python-indent-config ()
-      "For use in python-mode-hook."
-      (local-set-key (kbd "<tab>")
-        (lambda () (interactive) (rthoma/indent-by-inserting-spaces 4)))
-      (local-set-key (kbd "<backtab>")
-        (lambda () (interactive) (rthoma/unindent-by-removing-spaces 4))))
-
-    ;; Add custom indentation to mode hook
-    (add-hook 'python-mode-hook #'rthoma/python-indent-config)
+ ;; ;; Python indentation setup
+ ;; (defun rthoma/python-indent-config ()
+ ;;   "For use in python-mode-hook."
+ ;;   (local-set-key (kbd "<tab>")
+ ;;     (lambda () (interactive) (rthoma/indent-by-inserting-spaces 4)))
+ ;;   (local-set-key (kbd "<backtab>")
+ ;;     (lambda () (interactive) (rthoma/unindent-by-removing-spaces 4))))
+ ;;
+ ;; ;; Add custom indentation to mode hook
+ ;; (add-hook 'python-mode-hook #'rthoma/python-indent-config)
 
     (when (fboundp 'company-quickhelp-mode) (company-quickhelp-mode 1))))
 
@@ -102,15 +102,16 @@
   :mode ("\\.m$" . octave-mode)
   :config
   (progn
-    ;; Octave indentation setup
-    (defun rthoma/octave-indent-config ()
-      "For use in octave-mode-hook."
-      (local-set-key (kbd "<tab>")
-        (lambda () (interactive) (rthoma/indent-by-inserting-spaces 4)))
-      (local-set-key (kbd "<backtab>")
-        (lambda () (interactive) (rthoma/unindent-by-removing-spaces 4))))
-
-    ;; Add custom indentation to mode hook
-    (add-hook 'octave-mode-hook #'rthoma/octave-indent-config)))
+ ;; ;; Octave indentation setup
+ ;; (defun rthoma/octave-indent-config ()
+ ;;   "For use in octave-mode-hook."
+ ;;   (local-set-key (kbd "<tab>")
+ ;;     (lambda () (interactive) (rthoma/indent-by-inserting-spaces 4)))
+ ;;   (local-set-key (kbd "<backtab>")
+ ;;     (lambda () (interactive) (rthoma/unindent-by-removing-spaces 4))))
+ ;;
+ ;; ;; Add custom indentation to mode hook
+ ;; (add-hook 'octave-mode-hook #'rthoma/octave-indent-config)
+  ))
 
 ;; eof
