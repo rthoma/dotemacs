@@ -113,8 +113,5 @@
  ;; ;; Add custom indentation to mode hook
  ;; (add-hook 'octave-mode-hook #'rthoma/octave-indent-config)
   ))
-<<<<<<< HEAD
 
-=======
->>>>>>> 7d4a649521983afac9274faebeaa5f996ef0c27a
 ;; eof
