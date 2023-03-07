@@ -15,8 +15,8 @@
   (set-frame-font "Menlo-12" nil t))
 
 (when (eq system-type 'windows-nt)
-  (add-to-list 'default-frame-alist '(font . "Bitstream Vera Sans Mono-12"))
-  (set-frame-font "Bitstream Vera Sans Mono-12" nil t))
+  (add-to-list 'default-frame-alist '(font . "Consolas-10"))
+  (set-frame-font "Consolas-10" nil t))
 
 ;; Winner mode for switching between window layouts
 (when (fboundp 'winner-mode) (winner-mode 1))

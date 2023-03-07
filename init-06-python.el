@@ -98,20 +98,19 @@
 ;; Octave setup
 ;;
 (use-package octave
+  :defer t
   :ensure t
   :mode ("\\.m$" . octave-mode)
+  :init
+  (setq octave-comment-char ?%)
   :config
   (progn
- ;; ;; Octave indentation setup
- ;; (defun rthoma/octave-indent-config ()
- ;;   "For use in octave-mode-hook."
- ;;   (local-set-key (kbd "<tab>")
- ;;     (lambda () (interactive) (rthoma/indent-by-inserting-spaces 4)))
- ;;   (local-set-key (kbd "<backtab>")
- ;;     (lambda () (interactive) (rthoma/unindent-by-removing-spaces 4))))
- ;;
- ;; ;; Add custom indentation to mode hook
- ;; (add-hook 'octave-mode-hook #'rthoma/octave-indent-config)
-  ))
+    (setq comment-start "%")
+    (setq comment-add 0)
+
+    (add-hook 'octave-mode-hook
+      (lambda ()
+        (setq-local smie-indent-functions
+                    (delete 'octave-indent-comment smie-indent-functions))))))
 
 ;; eof

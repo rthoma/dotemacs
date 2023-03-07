@@ -31,6 +31,7 @@
       counsel                ;;
       dash                   ;;
       diminish               ;;
+   ;; ein                    ;;
       elpy                   ;;
       exec-path-from-shell   ;;
       find-file-in-project   ;;
@@ -42,7 +43,7 @@
       ivy                    ;;
       magit                  ;;
       magit-popup            ;;
-      org                    ;;
+   ;; org                    ;;
       pos-tip                ;;
       pyvenv                 ;;
       s                      ;;

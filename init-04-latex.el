@@ -9,9 +9,9 @@
 ;; Add aspell brew directory to path on macOS
 (when (eq system-type 'darwin)
       (setenv "PATH" (concat (getenv "PATH")
-              ":/usr/local/Cellar/aspell/0.60.6.1_1/bin"))
+              ":/usr/local/Cellar/aspell/0.60.8/bin"))
       (setq exec-path (append exec-path
-             '("/usr/local/Cellar/aspell/0.60.6.1_1/bin")))
+             '("/usr/local/Cellar/aspell/0.60.8/bin")))
 
       ;; Settings for aspell
       (setq ispell-program-name "aspell"
@@ -19,7 +19,7 @@
 
 ;; Tell Windows where to find hunspell
 (when (eq system-type 'windows-nt)
-      (setq ispell-program-name "C:/msys64/mingw64/bin/hunspell")
+      (setq ispell-program-name "C:/Program Files/GNU Emacs/hunspell-1.3.2-3-w32-bin/bin/hunspell.exe")
       (setq ispell-local-dictionary "en_US")
       (setq ispell-local-dictionary-alist
       '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
@@ -67,9 +67,9 @@
     (when (eq system-type 'windows-nt)
       (setq TeX-view-program-list
        '(("Sumatra"
-          "\"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe\" -reuse-instance %o")
+          "\"C:/Users/rtellio/AppData/Local/SumatraPDF/SumatraPDF.exe\" -reuse-instance %o")
          ("displayline"
-          "\"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe\" -reuse-instance -forward-search %b %n %o")
+          "\"C:/Users/rtellio/AppData/Local/SumatraPDF/SumatraPDF.exe\" -reuse-instance -forward-search %b %n %o")
          ("open" "open %o")))
 
       ;; Select the viewers for each file type
