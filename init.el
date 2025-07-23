@@ -43,13 +43,12 @@
         ("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
-(unless (or package-archive-contents
-            (file-exists-p package-user-dir))
+(unless (package-installed-p 'use-package)
   (package-refresh-contents)
-  (unless (package-installed-p 'use-package)
-    (package-install 'use-package)))
+  (package-install 'use-package))
 
-(require 'use-package)
+(eval-and-compile
+  (require 'use-package))
 
 (let ((verbose (or nil init-file-debug)))
   (setq use-package-verbose verbose
@@ -113,7 +112,7 @@
 
   (let ((font (cond
                ((eq system-type 'darwin) "Menlo-12")
-               ((eq system-type 'windows-nt) "Bitstream Vera Sans Mono-12")
+               ((eq system-type 'windows-nt) "Consolas-10")
                ((eq system-type 'gnu/linux) "DejaVu Sans Mono-12"))))
     (when font
       (add-to-list 'default-frame-alist `(font . ,font))
