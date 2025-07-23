@@ -61,19 +61,27 @@
 
 #+begin_src emacs-lisp
 (require 'package)
-(setq package-enable-at-startup nil)
 
-(setq package-archives
+(setq package-enable-at-startup nil
+      package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")))
+
+(when (eq system-type 'windows-nt)
+  (setq package-check-signature nil))
 #+end_src
 
 ** Bootstrapping =use-package=
 
 #+begin_src emacs-lisp
+;; only refresh archives if no metadata and no package directory
+(unless (or package-archive-contents
+            (file-exists-p package-user-dir))
+  (package-refresh-contents))
+
+;; install use-package if missing
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
   (package-install 'use-package))
 
 (eval-and-compile
@@ -399,6 +407,7 @@
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
+#+end_src
 
 ***** notes
 
@@ -739,7 +748,7 @@ info manual or its readme on GitHub.
 
 #+begin_src emacs-lisp
 (use-package octave
-  :ensure t
+  :ensure nil                           ;; built-in
   :defer t
   :mode ("\\.m\\'" . octave-mode))
 #+end_src
@@ -748,7 +757,7 @@ info manual or its readme on GitHub.
 
 #+begin_src emacs-lisp
 (use-package org
-  :ensure t
+  :ensure nil                           ;; built-in
   :defer t
   ;;
   :mode ("\\.org\\'" . org-mode)

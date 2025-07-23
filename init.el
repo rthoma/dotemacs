@@ -36,15 +36,23 @@
 (global-eldoc-mode -1)
 
 (require 'package)
-(setq package-enable-at-startup nil)
 
-(setq package-archives
+(setq package-enable-at-startup nil
+      package-archives
       '(("gnu" . "https://elpa.gnu.org/packages/")
         ("melpa" . "https://melpa.org/packages/")
         ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
+(when (eq system-type 'windows-nt)
+  (setq package-check-signature nil))
+
+;; only refresh archives if no metadata and no package directory
+(unless (or package-archive-contents
+            (file-exists-p package-user-dir))
+  (package-refresh-contents))
+
+;; install use-package if missing
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
   (package-install 'use-package))
 
 (eval-and-compile
@@ -294,6 +302,42 @@
                   cape-file)
                 cape-dabbrev-min-length 5)))
 
+(use-package embark
+  :bind (("M-."   . embark-act)
+         ("C-M-." . embark-act-all)
+         ("C-h b" . embark-bindings)    ;; alternative for `describe-bindings'
+         ("C-c v" . embark-dwim)
+         :map embark-collect-mode-map
+         ("C-c C-a" . embark-collect-direct-action-minor-mode))
+  ;;
+  :custom
+  (embark-indicators
+   '(embark-minimal-indicator
+     embark-highlight-indicator
+     embark-isearch-highlight-indicator))
+  ;;
+  :init
+  ;; Optionally replace the key help with a completing-read interface
+  (setq prefix-help-command #'embark-prefix-help-command)
+
+  ;; Show the Embark target at point via Eldoc. You may adjust the
+  ;; Eldoc strategy, if you want to see the documentation from
+  ;; multiple providers.
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;;
+  :config
+  ;; Hide the mode line of the Embark live/completions buffers
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult             ;; package hosted on elpa
+  :ensure t
+  :defer t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
 (use-package marginalia
   :ensure t
   :init
@@ -531,12 +575,12 @@
   (markdown-mode . (lambda () (setq markdown-fontify-code-blocks-natively t))))
 
 (use-package octave
-  :ensure t
+  :ensure nil                           ;; built-in
   :defer t
   :mode ("\\.m\\'" . octave-mode))
 
 (use-package org
-  :ensure t
+  :ensure nil                           ;; built-in
   :defer t
   ;;
   :mode ("\\.org\\'" . org-mode)
