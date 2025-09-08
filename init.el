@@ -69,28 +69,41 @@
 (use-package emacs                      ;; not an actual package
   :no-require t
   ;;
+  :preface
+  (defun rthoma/fill-region-or-paragraph ()
+    "Respect a mode-local binding of `C-c o` if one exists."
+    (interactive)
+    (let ((local-command (local-key-binding (kbd "C-c o"))))
+      (if (and (commandp local-command)
+               (not (eq local-command #'rthoma/fill-region-or-paragraph)))
+          (call-interactively local-command)
+        (if (use-region-p)
+            (fill-region (region-beginning) (region-end))
+          (fill-paragraph)))))
+  ;;
   :custom
+  ;; Startup and UI
   (inhibit-startup-screen t)
   (line-number-mode t)
   (column-number-mode t)
 
-  ;; bytecomp.el
+  ;; Byte compilation, bytecomp.el
   (byte-compile-verbose nil)
 
-  ;; files.el
+  ;; File handling, files.el
   (backup-by-copying t)
   (delete-old-versions t)
   (kept-new-versions 3)
   (kept-old-versions 2)
   (version-control t)
 
-  ;; paragraphs.el
+  ;; Paragraphs, paragraphs.el
   (sentence-end-double-space nil)
 
-  ;; paren.el
+  ;; Parentheses, paren.el
   (show-paren-delay 0)
 
-  ;; time.el
+  ;; Time, time.el
   (display-time-24hr-format t)
   (display-time-default-load-average nil)
   ;;
@@ -107,6 +120,7 @@
   (setq-default indent-tabs-mode nil)
   (setq-default octave-block-offset 4)
 
+  ;; OS-specific
   (when (eq system-type 'darwin)
     (setq mac-option-key-is-meta t
           mac-command-key-is-meta nil
@@ -118,6 +132,7 @@
           w32-pass-rwindow-to-system nil
           w32-pass-alt-to-system nil))
 
+  ;; Fonts
   (let ((font (cond
                ((eq system-type 'darwin) "Menlo-12")
                ((eq system-type 'windows-nt) "Consolas-10")
@@ -125,6 +140,9 @@
     (when font
       (add-to-list 'default-frame-alist `(font . ,font))
       (set-frame-font font nil t)))
+  ;;
+  :bind
+  ("C-c o" . rthoma/fill-region-or-paragraph)
   ;;
   :config
   (defalias 'yes-or-no-p 'y-or-n-p)
@@ -205,8 +223,7 @@
 
 (use-package whitespace
   :diminish whitespace-mode
-  :bind (:map whitespace-mode-map
-              ("C-c s w" . whitespace-mode))
+  :bind ("C-c s w" . whitespace-mode)
   :init
   (setq whitespace-line-column 79)
   (add-hook 'before-save-hook #'delete-trailing-whitespace))
@@ -302,42 +319,6 @@
                   cape-file)
                 cape-dabbrev-min-length 5)))
 
-(use-package embark
-  :bind (("M-."   . embark-act)
-         ("C-M-." . embark-act-all)
-         ("C-h b" . embark-bindings)    ;; alternative for `describe-bindings'
-         ("C-c v" . embark-dwim)
-         :map embark-collect-mode-map
-         ("C-c C-a" . embark-collect-direct-action-minor-mode))
-  ;;
-  :custom
-  (embark-indicators
-   '(embark-minimal-indicator
-     embark-highlight-indicator
-     embark-isearch-highlight-indicator))
-  ;;
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-
-  ;; Show the Embark target at point via Eldoc. You may adjust the
-  ;; Eldoc strategy, if you want to see the documentation from
-  ;; multiple providers.
-  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;;
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
-
-(use-package embark-consult             ;; package hosted on elpa
-  :ensure t
-  :defer t
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
-
 (use-package marginalia
   :ensure t
   :init
@@ -396,14 +377,7 @@
     :demand t
     :bind (:map vertico-map
                 ("C-." . vertico-quick-exit)
-                ("<S-return>" . vertico-quick-exit)
-                ("M->" . vertico-quick-embark))
-    :preface
-    (defun vertico-quick-embark (&optional arg)
-      "Embark on candidate using quick keys."
-      (interactive)
-      (when (vertico-quick-jump)
-        (embark-act arg)))))
+                ("<S-return>" . vertico-quick-exit))))
 
 (use-package yasnippet
   :ensure t
@@ -497,6 +471,10 @@
                 (setq TeX-command-default "latexmk")))
   ;;
   :config
+  ;; Suppress "Searching for LaTeX packages ..."
+  (setq LaTeX-global-package-files '(("dummy")))
+  (setq TeX-arg-input-file-search nil)
+
   ;; Set the list of viewers for macOS
   (when (eq system-type 'darwin)
     (setq TeX-view-program-list
@@ -510,9 +488,9 @@
   (when (eq system-type 'windows-nt)
     (setq TeX-view-program-list
           '(("Sumatra"
-             "\"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe\" -reuse-instance %o")
+             "\"C:/Users/rtellio/AppData/Local/SumatraPDF/SumatraPDF.exe\" -reuse-instance %o")
             ("displayline"
-             "\"C:/Program Files (x86)/SumatraPDF/SumatraPDF.exe\" -reuse-instance -forward-search %b %n %o")
+             "\"C:/Users/rtellio/AppData/Local/SumatraPDF/SumatraPDF.exe\" -reuse-instance -forward-search %b %n %o")
             ("open" "open %o"))))
 
   ;; Select the viewer for each file type
@@ -608,11 +586,30 @@
         org-src-preserve-indentation t
         org-log-done 'time))
 
+(use-package eglot                      ;; not an actual package
+  :hook (python-mode . eglot-ensure)
+  ;;
+  :bind (:map python-mode-map
+              ("C-c h" . eglot-help-at-point))
+  ;;
+  :config
+  ;; Tell eglot to use pyright instead of pylsp
+  (add-to-list 'eglot-server-programs
+               '(python-mode . ("pyright-langserver" "--stdio")))
+
+  ;; Limit Eldoc to signatures only
+  (setq eldoc-documentation-functions '(eglot-signature-eldoc-function))
+
+  ;; Add a small idle delay to avoid too-frequent queries
+  (setq eldoc-idle-delay 0.5)
+
+  ;; Prefer plaintext over Markdown
+  (setq eglot-prefer-plaintext t))
+
 (use-package python
   :defer t
   ;;
   :hook
-  (python-mode . eglot-ensure)
   (python-mode . yas-minor-mode)
   ;;
   :config
@@ -631,6 +628,13 @@
 
   (define-key python-mode-map (kbd "C-c C-k") #'rthoma/python-interrupt)
   (define-key inferior-python-mode-map (kbd "C-c C-k") #'rthoma/python-interrupt))
+
+(use-package python-black
+  :ensure t
+  :after python
+  :hook (python-mode . python-black-on-save-mode)
+  :custom
+  (python-black-extra-args '("--line-length" "79")))
 
 (use-package doom-themes
   :ensure t
