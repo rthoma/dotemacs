@@ -716,24 +716,27 @@
 
 #+begin_src emacs-lisp
 (use-package eglot                      ;; not an actual package
-  :hook (python-mode . eglot-ensure)
-  ;;
-  :bind (:map python-mode-map
-              ("C-c h" . eglot-help-at-point))
-  ;;
+  :commands eglot
+  :bind
+  (:map eglot-mode-map
+        ("M-^"     . eglot-find-implementation)
+        ("C-c C-." . eglot-code-actions)
+        ("C-c h"   . eglot-help-at-point))
+  :custom
+  (eglot-autoshutdown t)
   :config
-  ;; Tell eglot to use pyright instead of pylsp
+  (setq read-process-output-max (* 1024 1024))
+
   (add-to-list 'eglot-server-programs
-               '(python-mode . ("pyright-langserver" "--stdio")))
+               '((python-mode python-ts-mode)
+                 . ("pyright-langserver" "--stdio")))
 
-  ;; Limit Eldoc to signatures only
-  (setq eldoc-documentation-functions '(eglot-signature-eldoc-function))
-
-  ;; Add a small idle delay to avoid too-frequent queries
-  (setq eldoc-idle-delay 0.5)
-
-  ;; Prefer plaintext over Markdown
-  (setq eglot-prefer-plaintext t))
+  (add-hook 'eglot-managed-mode-hook
+            (lambda ()
+              (setq eldoc-documentation-functions
+                    (cons #'flymake-eldoc-function
+                          (remove #'flymake-eldoc-function
+                                  eldoc-documentation-functions))))))
 
 (use-package python
   :defer t
@@ -764,6 +767,10 @@
   :hook (python-mode . python-black-on-save-mode)
   :custom
   (python-black-extra-args '("--line-length" "79")))
+
+(use-package cython-mode
+  :ensure t
+  :defer t)
 #+end_src
 
 ** Theme
